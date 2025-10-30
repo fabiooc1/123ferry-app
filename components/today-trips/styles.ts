@@ -7,9 +7,9 @@ export const s = StyleSheet.create({
         gap: 12,
     },
     title: {
+        fontFamily: "Inter-Bold",
         fontSize: 20,
         color: colors.text.secondary,
-        fontWeight: "700",
         lineHeight: 36,
         paddingLeft: 22
     },

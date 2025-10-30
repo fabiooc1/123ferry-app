@@ -10,7 +10,7 @@ export const s = StyleSheet.create({
         alignItems: "center",
     },
     label: {
-        fontWeight: 'bold',
+        fontFamily: "Inter-Bold",
         lineHeight: 36,
         fontSize: 16,
         color: colors.text.secondary
