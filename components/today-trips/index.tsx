@@ -1,6 +1,8 @@
 import { getHours } from "@/utils/date";
 import { FlatList, Text, View } from "react-native";
+import EmptyList from "../empty-list";
 import VerticalTripCard from "../vertical-trip-card";
+import VerticalTripCardSkeleton from "../vertical-trip-card/skeleton"; // Ajuste o caminho se necessário
 import { useTodayTrips } from "./hooks/use-today-trips";
 import { s } from "./styles";
 
@@ -9,35 +11,48 @@ type TodayTripsProps = {
   routeId: number;
 };
 
+const SKELETON_DATA = [1, 2, 3];
+
 export default function TodayTrips({ title, routeId }: TodayTripsProps) {
-  const { tripsPaginationData } = useTodayTrips(routeId)
+  const { tripsPaginationData, isLoading } = useTodayTrips(routeId);
+
+  const renderRealItem = ({ item }: { item: any }) => (
+    <VerticalTripCard
+      departureHour={getHours(item.dataPartida)}
+      arrivalHour={getHours(item.dataChegada)}
+      amountPassengers={item.quantidadeDePassageiros}
+      ferry={{
+        name: item.ferry.nome,
+        maxPeoplesCapacity: Number(item.ferry.maximoDePessoas),
+      }}
+    />
+  );
+
+  const renderSkeletonItem = () => <VerticalTripCardSkeleton />;
 
   return (
     <View style={s.container}>
       <Text style={s.title}>{title}</Text>
 
-      {tripsPaginationData && (
-        <FlatList
-          style={s.listContainer}
-          data={tripsPaginationData.data}
-          renderItem={({ item, index }) => (
-            <VerticalTripCard
-              arrivalHour={getHours(item.dataPartida)}
-              departureHour={getHours(item.dataChegada)}
-              amountPassengers={item.quantidadeDePassageiros}
-              ferry={{
-                name: item.ferry.nome,
-                maxPeoplesCapacity: item.ferry.maximoDePessoas,
-              }}
-            />
-          )}
-          keyExtractor={(item) => String(item.id)}
-          horizontal={true}
-          ItemSeparatorComponent={() => <View style={{ width: 24 }} />}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 22 }}
-        />
-      )}
+      <FlatList
+        style={s.listContainer}
+        data={isLoading ? SKELETON_DATA : tripsPaginationData?.data}
+        renderItem={isLoading ? renderSkeletonItem : renderRealItem}
+        keyExtractor={(item, index) =>
+          isLoading ? `skeleton-${index}` : String(item.id)
+        }
+        horizontal={true}
+        ItemSeparatorComponent={() => <View style={{ width: 24 }} />}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 22 }}
+        ListEmptyComponent={
+          <EmptyList
+            title="Sem passagens"
+            description="Infelizmente não foi possível encontrar nenhuma passagem com essa rota"
+            width={360}
+          />
+        }
+      />
     </View>
   );
 }
