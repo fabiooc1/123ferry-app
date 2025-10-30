@@ -21,21 +21,21 @@ export default function VerticalTripCard({
 }: VerticalTripCardProps) {
   return (
     // <Link href="/" asChild>
-      <View style={s.container}>
-        <View style={s.startContainer}>
-            <Text style={s.departureHour}>{departureHour}</Text>
-            <Text style={s.arrivalHour}>Chegada {arrivalHour}</Text>
-            <Text style={s.ferryName}>{ferry.name}</Text>
-        </View>
-
-        <View style={s.footerContainer}>
-          <Text style={s.footerLabel}>
-            {amountPassengers}/{ferry.maxPeoplesCapacity}
-          </Text>
-
-          <UsersIcon weight="fill" color={colors.icon.secondary} size={16} />
-        </View>
+    <View style={s.container}>
+      <View style={s.startContainer}>
+        <Text style={s.departureHour}>{departureHour}</Text>
+        <Text style={s.arrivalHour}>Chegada {arrivalHour}</Text>
+        <Text style={s.ferryName}>{ferry.name}</Text>
       </View>
+
+      <View style={s.footerContainer}>
+        <Text style={s.footerLabel}>
+          {amountPassengers}/{ferry.maxPeoplesCapacity}
+        </Text>
+
+        <UsersIcon weight="fill" color={colors.icon.secondary} size={16} />
+      </View>
+    </View>
     // </Link>
   );
 }
