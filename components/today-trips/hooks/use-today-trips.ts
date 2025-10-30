@@ -14,7 +14,7 @@ export function useTodayTrips(routeId: number) {
         const currentTimestampUTC = new Date().toISOString();
         const resultData = await tripService.getAll(
           1,
-          3,
+          10,
           routeId,
           currentTimestampUTC
         );
