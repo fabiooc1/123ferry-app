@@ -4,7 +4,7 @@ import {
   HouseIcon,
   ShoppingCartSimpleIcon,
   TicketIcon,
-  UserIcon
+  UserIcon,
 } from "phosphor-react-native";
 
 export default function TabsLayout() {
@@ -15,20 +15,14 @@ export default function TabsLayout() {
         tabBarInactiveTintColor: colors.icon.primary,
         tabBarActiveTintColor: colors.icon.secondary,
         tabBarStyle: {
-          backgroundColor: colors.bg.secondary,
           borderColor: colors.border.primary,
-          borderWidth: 1,
-          paddingVertical: 6,
-          paddingHorizontal: 44,
-          height: 88,
-        },
-        tabBarIconStyle: {
-          width: 28,
-          height: 28
+          backgroundColor: colors.bg.secondary,
+          borderWidth: 2,
+          height: 72,
         },
         tabBarLabelStyle: {
           fontSize: 12,
-          fontWeight: "600",
+          fontFamily: "Inter-SemiBold",
         },
       }}
     >
