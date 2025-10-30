@@ -19,8 +19,6 @@ export default function VerticalTripCard({
   ferry,
   amountPassengers,
 }: VerticalTripCardProps) {
-
-  console.log("ESTOU SENDO RENDERIZADO")
   return (
     // <Link href="/" asChild>
       <View style={s.container}>
