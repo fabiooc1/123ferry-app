@@ -2,12 +2,15 @@ export const colors = {
     bg: {
         primary: '#FFFFFF',
         secondary: '#F5F7FA',
-        tertiary: '#F5F7FA'
+        tertiary: '#F5F7FA',
+        onAccent: '#3B82F6'
     },
     text: {
         primary: '#102A43',
         secondary: '#486581',
-        tertiary: '#829AB1'
+        tertiary: '#829AB1',
+        placeholder: '#64748B',
+        onAccent: '#FFFFFF'
     },
     border: {
         primary: '#E9EDF0'
