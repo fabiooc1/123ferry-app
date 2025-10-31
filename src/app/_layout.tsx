@@ -6,7 +6,6 @@ import { useEffect } from "react";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  console.log("TESTANDO")
   const [loaded, error] = useFonts({
     "Inter-Black": require("../assets/fonts/Inter-Black.ttf"),
     "Inter-Bold": require("../assets/fonts/Inter-Bold.ttf"),
@@ -30,7 +29,8 @@ export default function RootLayout() {
     <Stack screenOptions={{
       headerShown: false,
     }}>
-      <Stack.Screen name="index" />
+      <Stack.Screen name="login" />
+      <Stack.Screen name="register" />
     </Stack>
   );
 }
