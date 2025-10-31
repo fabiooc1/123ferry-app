@@ -1,4 +1,4 @@
-export type TripModel = {
+export interface TripModel {
   id: bigint;
   ferryId: bigint;
   rotaId: bigint;
