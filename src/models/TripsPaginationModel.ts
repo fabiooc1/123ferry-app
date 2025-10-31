@@ -1,6 +1,6 @@
 import { TripModel } from "./TripModel";
 
-export type TripsPaginationModel = {
+export interface TripsPaginationModel {
   data: TripModel[];
   meta: {
     totalItens: number;
