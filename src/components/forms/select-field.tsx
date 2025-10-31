@@ -84,7 +84,6 @@ const s = StyleSheet.create({
     fontFamily: "Inter-Bold",
     fontSize: 14,
     width: '100%',
-    paddingVertical: 2,
   },
   placeholderItem: {
     color: colors.text.placeholder,
