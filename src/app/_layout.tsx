@@ -1,5 +1,6 @@
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
@@ -16,21 +17,47 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
+    if (error) throw error;
+  }, [error]);
 
   if (!loaded && !error) {
     return null;
   }
 
   return (
-    <Stack screenOptions={{
-      headerShown: false,
-    }}>
-      <Stack.Screen name="login" />
-      <Stack.Screen name="register" />
+    <AuthProvider>
+      <AuthGuardLayout />
+    </AuthProvider>
+  );
+}
+function AuthGuardLayout() {
+  const { user, isLoadingUser } = useAuth();
+  const segments = useSegments();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoadingUser) {
+      return;
+    }
+
+    SplashScreen.hideAsync();
+    const inAuthGroup = segments[0] === '(auth)';
+
+    if (!user && !inAuthGroup) {
+      router.replace('/(auth)/login');
+    } else if (user && inAuthGroup) {
+      router.replace('/(tabs)');
+    }
+  }, [user, isLoadingUser, segments, router]);
+
+  if (isLoadingUser) {
+    return null;
+  }
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(auth)" />
+      <Stack.Screen name="(tabs)" />
     </Stack>
   );
 }
