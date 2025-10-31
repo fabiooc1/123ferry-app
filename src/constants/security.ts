@@ -1,0 +1,1 @@
+export const jwtKeyPath = "api-auth-token"
