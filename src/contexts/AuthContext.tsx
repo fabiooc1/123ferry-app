@@ -1,5 +1,6 @@
 import { UserModel } from "@/models/UserModel";
 import { userService } from "@/services/userService";
+import { AxiosError } from "axios";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 type AuthContextProps = {
@@ -23,6 +24,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     userService.get()
     .then(userData => {
         setUser(userData)
+    })
+    .catch(error => {
+      if (error instanceof AxiosError) {
+        if (error.status === 401) {
+          setUser(null)
+          return
+        }
+      }
     })
     .finally(() => {
         setIsLoadingUser(false)
