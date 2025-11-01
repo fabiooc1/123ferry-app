@@ -1,4 +1,3 @@
-import { getHours } from "@/utils/date";
 import { FlatList, Text, View } from "react-native";
 import EmptyList from "../empty-list";
 import VerticalTripCard from "../vertical-trip-card";
@@ -16,18 +15,7 @@ const SKELETON_DATA = [1, 2, 3];
 export default function TodayTrips({ title, routeId }: TodayTripsProps) {
   const { tripsPaginationData, isLoading } = useTodayTrips(routeId);
 
-  const renderRealItem = ({ item }: { item: any }) => (
-    <VerticalTripCard
-      departureHour={getHours(item.dataPartida)}
-      arrivalHour={getHours(item.dataChegada)}
-      amountPassengers={item.quantidadeDePassageiros}
-      ferry={{
-        name: item.ferry.nome,
-        maxPeoplesCapacity: Number(item.ferry.maximoDePessoas),
-      }}
-    />
-  );
-
+  const renderRealItem = ({ item }: { item: any }) => <VerticalTripCard trip={item} />
   const renderSkeletonItem = () => <VerticalTripCardSkeleton />;
 
   return (
