@@ -1,7 +1,7 @@
 import Button from "@/components/button";
 import FormField from "@/components/forms/form-field";
 import { colors } from "@/constants/colors";
-import { userService } from "@/services/userService";
+import { useAuth } from "@/contexts/AuthContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import { LoginFormData, loginFormSchema } from "./schema";
 
 export default function LoginForm() {
   const [isSubmittingFormData, setIsSubmittingFormData] = useState(false)
+  const { login } = useAuth()
   const navigate = useRouter()
 
   const form = useForm({
@@ -24,7 +25,7 @@ export default function LoginForm() {
   async function handleOnSubmitLogin(data: LoginFormData) {
     try {
       setIsSubmittingFormData(true)
-      await userService.login(data);
+      await login(data)
 
       navigate.replace("/(tabs)")
     } catch (error) {
