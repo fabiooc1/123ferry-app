@@ -6,7 +6,7 @@ import { s } from "./styles"
 type EmptyListProps = {
     title: string
     description: string,
-    width: number
+    width: number | '100%'
 }
 
 export default function EmptyList({ title, description, width }: EmptyListProps) {
