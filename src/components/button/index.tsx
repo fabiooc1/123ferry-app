@@ -1,15 +1,15 @@
 import { colors } from "@/constants/colors";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { ActivityIndicator, Pressable, Text, TextStyle, ViewStyle } from "react-native";
 import { s } from './styles';
 
 type ButtonProps = {
   variant?: 'primary' | 'secondary';
   label?: string;
-  child?: ReactNode;
+  children?: ReactNode;
   isSubmitting?: boolean;
+  size?: 'full' | 'small' | 'icon';
   onPress: () => void;
-  size?: 'full' | 'small';
 };
 
 const containerStyleMap: Record<string, ViewStyle> = {
@@ -25,33 +25,48 @@ const textStyleMap: Record<string, TextStyle> = {
 const sizeContainerStyleMap: Record<string, ViewStyle> = {
   full: {},
   small: s.smallContainer,
+  icon: s.iconContainer,
 };
 
 const sizeTextStyleMap: Record<string, TextStyle> = {
   full: {},
   small: s.smallText,
+  icon: {},
 };
 
 export default function Button({
   variant = 'primary',
   onPress,
   label,
-  child,
+  children,
   isSubmitting = false,
   size = 'full'
 }: ButtonProps) {
 
   const containerStyle = containerStyleMap[variant];
   const textStyle = textStyleMap[variant];
-
   const sizeContainerStyle = sizeContainerStyleMap[size];
   const sizeTextStyle = sizeTextStyleMap[size];
 
-  const content = child ? child : (
-    <Text style={[textStyle, sizeTextStyle]}>
-      {label}
-    </Text>
-  );
+  const contentColor = textStyle.color || colors.text.primary;
+
+  let content: ReactNode;
+
+  if (children) {
+    if (React.isValidElement(children)) {
+      content = React.cloneElement(children as React.ReactElement<any>, {
+        color: contentColor,
+      });
+    } else {
+      content = children;
+    }
+  } else {
+    content = (
+      <Text style={[textStyle, sizeTextStyle]}>
+        {label}
+      </Text>
+    );
+  }
 
   return (
     <Pressable
@@ -64,7 +79,7 @@ export default function Button({
       onPress={onPress}
     >
       {isSubmitting ? (
-        <ActivityIndicator size="small" color={colors.icon.primary} />
+        <ActivityIndicator size="small" color={contentColor} />
       ) : (
         content
       )}

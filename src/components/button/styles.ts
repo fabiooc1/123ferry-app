@@ -45,4 +45,10 @@ export const s = StyleSheet.create({
   smallText: {
     fontSize: 14,
   },
+
+  iconContainer: {
+    width: 'auto',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+  },
 });
