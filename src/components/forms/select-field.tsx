@@ -70,11 +70,12 @@ const s = StyleSheet.create({
     color: colors.status.error,
   },
   inputContainer: {
+    width: '100%',
     borderRadius: 12,
     borderColor: colors.border.primary,
     borderWidth: 2,
     backgroundColor: colors.bg.secondary,
-    paddingHorizontal: 12,
+    paddingHorizontal: 6
   },
   inputError: {
     borderColor: colors.status.error,
