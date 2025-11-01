@@ -1,8 +1,10 @@
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { useFonts } from "expo-font";
 import { Stack, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,9 +27,11 @@ export default function RootLayout() {
   }
 
   return (
-    <AuthProvider>
-      <AuthGuardLayout />
-    </AuthProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AuthProvider>
+        <AuthGuardLayout />
+      </AuthProvider>
+    </GestureHandlerRootView>
   );
 }
 function AuthGuardLayout() {
@@ -41,12 +45,12 @@ function AuthGuardLayout() {
     }
 
     SplashScreen.hideAsync();
-    const inAuthGroup = segments[0] === '(auth)';
+    const inAuthGroup = segments[0] === "(auth)";
 
     if (!user && !inAuthGroup) {
-      router.replace('/(auth)/login');
+      router.replace("/(auth)/login");
     } else if (user && inAuthGroup) {
-      router.replace('/(tabs)');
+      router.replace("/(tabs)");
     }
   }, [user, isLoadingUser, segments, router]);
 
@@ -55,9 +59,11 @@ function AuthGuardLayout() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(auth)" />
-      <Stack.Screen name="(tabs)" />
-    </Stack>
+    <BottomSheetModalProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(tabs)" />
+      </Stack>
+    </BottomSheetModalProvider>
   );
 }
