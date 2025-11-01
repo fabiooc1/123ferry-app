@@ -5,6 +5,7 @@ import { getItem } from "expo-secure-store";
 
 export const api = axios.create({
     baseURL: 'http://192.168.100.29:3000',
+    timeout: 8000 // 8 seconds
 })
 
 api.interceptors.request.use((request) => {
@@ -16,20 +17,3 @@ api.interceptors.request.use((request) => {
 
   return request;
 });
-
-// api.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   (error) => {
-//     if (error.response) {
-//       const { status, config } = error.response;
-
-//       if (status === 401 && !config.url?.startsWith("/auth")) {
-//         router.replace('/(auth)/login');
-//       }
-//     }
-
-//     return Promise.reject(error);
-//   }
-// );
