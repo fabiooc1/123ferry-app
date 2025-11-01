@@ -8,7 +8,8 @@ const BASE_CONTAINER_STYLE = {
   alignItems: 'center',
   justifyContent: 'center',
   borderWidth: 2,
-  borderColor: colors.border.primary
+  borderColor: colors.border.primary,
+  width: '100%',
 } as const;
 
 const BASE_TEXT_STYLE = {
@@ -36,4 +37,12 @@ export const s = StyleSheet.create({
     color: colors.text.secondary,
   },
 
+  smallContainer: {
+    width: 'auto',
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+  },
+  smallText: {
+    fontSize: 14,
+  },
 });
