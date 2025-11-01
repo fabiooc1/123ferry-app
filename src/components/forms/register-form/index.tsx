@@ -1,5 +1,6 @@
 import Button from "@/components/button";
 import { colors } from "@/constants/colors";
+import { useAuth } from "@/contexts/AuthContext";
 import { ValidationError } from "@/services/errors/ValidationError";
 import { userService } from "@/services/userService";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +16,7 @@ const PHONE_MASK = "(99) 99999-9999";
 
 export default function RegisterForm() {
   const [isSubmittingFormData, setIsSubmittingFormData] = useState(false)
+  const { login } = useAuth()
 
   const form = useForm({
     resolver: zodResolver(registerFormSchema),
@@ -44,7 +46,7 @@ export default function RegisterForm() {
         senha: data.password
       });
 
-      await userService.login({
+      await login({
         email: data.email,
         password: data.password
       })
