@@ -4,7 +4,7 @@ import {
   HouseIcon,
   ShoppingCartSimpleIcon,
   TicketIcon,
-  UserIcon,
+  UserIcon
 } from "phosphor-react-native";
 
 export default function TabsLayout() {
@@ -37,7 +37,7 @@ export default function TabsLayout() {
       />
 
       <Tabs.Screen
-        name="schedule-ticket"
+        name="schedule-trip"
         options={{
           tabBarLabel: "Passagens",
           tabBarIcon: ({ color, size }) => (
