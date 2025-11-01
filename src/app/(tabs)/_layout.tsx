@@ -65,6 +65,13 @@ export default function TabsLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="(schedule-trip)/schedule-details"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   );
 }
