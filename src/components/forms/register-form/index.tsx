@@ -1,5 +1,6 @@
 import Button from "@/components/button";
 import { colors } from "@/constants/colors";
+import { CPF_MASK, PHONE_MASK } from "@/constants/masks";
 import { useAuth } from "@/contexts/AuthContext";
 import { ValidationError } from "@/services/errors/ValidationError";
 import { userService } from "@/services/userService";
@@ -10,9 +11,6 @@ import { Controller, useForm } from "react-hook-form";
 import { Alert, StyleSheet, View } from "react-native";
 import FormField from "../form-field";
 import { RegisterFormData, registerFormSchema } from "./schema";
-
-const CPF_MASK = "999.999.999-99";
-const PHONE_MASK = "(99) 99999-9999";
 
 export default function RegisterForm() {
   const [isSubmittingFormData, setIsSubmittingFormData] = useState(false)
@@ -114,8 +112,8 @@ export default function RegisterForm() {
             <FormField
               label="Telefone*"
               type="text"
-              placeholder="(00) 90000-0000"
               mask={PHONE_MASK}
+              placeholder="(00) 90000-0000"
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -131,8 +129,8 @@ export default function RegisterForm() {
             <FormField
               label="CPF*"
               type="text"
-              placeholder="000.000.000-00"
               mask={CPF_MASK}
+              placeholder="000.000.000-00"
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
