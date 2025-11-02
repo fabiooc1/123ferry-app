@@ -59,7 +59,7 @@ const AddPassagerBottomSheetModal = forwardRef<
             </Pressable>
           </View>
 
-          <AddPassagerForm />
+          <AddPassagerForm onSuccess={dismiss} />
         </BottomSheetScrollView>
       </KeyboardAvoidingView>
     </BottomSheetModal>
