@@ -21,6 +21,7 @@ interface PurchasePassagerContextProps {
   currentTrip: TripModel | null;
   loadDataForTrip: (tripId: number) => void;
 
+  purchaseDone: () => void;
   isLoading: boolean;
 }
 
@@ -49,6 +50,12 @@ export function PurchasePassagerProvider({ children }: { children: React.ReactNo
 
   function removeVehicle(plate: string) {
     setVehicles((prevVehicles) => prevVehicles.filter((vehicle) => vehicle.plate !== plate));
+  }
+
+  function purchaseDone() {
+    setPassagers([])
+    setVehicles([])
+    setCurrentTrip(null)
   }
 
   async function loadDataForTrip(tripId: number) {
@@ -87,7 +94,8 @@ export function PurchasePassagerProvider({ children }: { children: React.ReactNo
       vehicleModels,
       isLoading,
       currentTrip,
-      loadDataForTrip
+      loadDataForTrip,
+      purchaseDone
     }}>
       {children}
     </PurchasePassagerContext.Provider>
