@@ -10,3 +10,19 @@ export function getHours(date: string): string {
 
   return utcDate.toLocaleString('pt-BR', options);
 }
+
+export function formatDateTime(isoString: string) {
+  const date = new Date(isoString);
+  const day = date.toLocaleDateString("pt-BR", { day: "2-digit" });
+  const month = date
+    .toLocaleDateString("pt-BR", { month: "short" })
+    .toUpperCase()
+    .replace(".", "");
+  const year = date.toLocaleDateString("pt-BR", { year: "numeric" });
+  const time = date.toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  return `${day}, ${month}. ${year} às ${time}`;
+}
