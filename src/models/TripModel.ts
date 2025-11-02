@@ -1,6 +1,5 @@
 export interface TripModel {
   id: number;
-  code: string;
   ferryId: number;
   rotaId: number;
   dataPartida: string;
