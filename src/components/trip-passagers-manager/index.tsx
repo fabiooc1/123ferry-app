@@ -1,15 +1,16 @@
-import { colors } from "@/constants/colors";
-import { SavePassagerInTripModel } from "@/models/SavePassagerInTripModel";
+import { usePurchasePassager } from "@/contexts/PurshasePassagerContext";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { PlusIcon } from "phosphor-react-native";
-import { useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useRef } from "react";
+import { Text, View } from "react-native";
 import AddPassagerBottomSheetModal from "../add-passager-bottom-sheet-modal";
 import Button from "../button";
 import EmptyList from "../empty-list";
+import PassagerCardManager from "./passager-card-manager";
+import { s } from "./styles";
 
 export default function TripPassagersManager() {
-  const [passagers, setPassagers] = useState<SavePassagerInTripModel[]>([]);
+  const { passagers } = usePurchasePassager()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   function handleOpenPassagerForm() {
@@ -27,7 +28,7 @@ export default function TripPassagersManager() {
       />
     );
   } else {
-    content = passagers.map((passager) => null);
+    content = passagers.map((passager) => <PassagerCardManager key={passager.cpf} passager={passager} />);
   }
 
   return (
@@ -50,24 +51,3 @@ export default function TripPassagersManager() {
     </>
   );
 }
-
-const s = StyleSheet.create({
-  container: {
-    padding: 10,
-    borderRadius: 18,
-    backgroundColor: colors.bg.secondary,
-    borderWidth: 2,
-    borderColor: colors.border.primary,
-    gap: 10,
-  },
-  startContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  startContainerTitle: {
-    color: colors.text.secondary,
-    fontSize: 16,
-    fontFamily: "Inter-Bold",
-  },
-});
