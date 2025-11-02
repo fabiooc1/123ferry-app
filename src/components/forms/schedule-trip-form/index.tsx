@@ -84,16 +84,20 @@ export default function ScheduleTripForm() {
         />
       </View>
 
-      <TripsList
-        isLoading={isSubmittingFormData && !!tripsPaginationData}
-        tripsPaginationData={tripsPaginationData}
-      />
+      <View style={s.listContainer}>
+        <TripsList
+          isLoading={isSubmittingFormData && !!tripsPaginationData}
+          tripsPaginationData={tripsPaginationData}
+        />
+      </View>
 
-      <Button
+      <View style={s.footerContainer}>
+        <Button
           onPress={form.handleSubmit(handleOnSearchTrips)}
           isSubmitting={isSubmittingFormData}
           label="Buscar"
-        ></Button>
+        />
+      </View>
     </View>
   );
 }
