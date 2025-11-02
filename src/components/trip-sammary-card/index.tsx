@@ -1,6 +1,7 @@
 import { colors } from "@/constants/colors";
 import { formatCurrency } from "@/utils/money";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { s } from "./styles";
 
 interface TripSammaryCardProps {
   data: {
@@ -96,53 +97,3 @@ export default function TripSammaryCard({ data }: TripSammaryCardProps) {
   );
 }
 
-const s = StyleSheet.create({
-  container: {
-    borderRadius: 18,
-    backgroundColor: colors.bg.secondary,
-    borderWidth: 2,
-    borderColor: colors.border.primary,
-    padding: 12,
-    gap: 6,
-  },
-  secondaryContainer: {
-    gap: 8,
-  },
-  secondaryTitle: {
-    fontSize: 18,
-    fontFamily: "Inter-Bold",
-    color: colors.text.secondary,
-  },
-  itemContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  type: {
-    fontSize: 16,
-    fontFamily: "Inter-SemiBold",
-    color: colors.text.tertiary,
-  },
-  typePrice: {
-    fontSize: 16,
-    fontFamily: "Inter-SemiBold",
-    color: colors.status.avaliable,
-  },
-
-  footerContainer: {
-    gap: 8,
-  },
-  footerTexts: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  total: {
-    fontSize: 20,
-    fontFamily: "Inter-ExtraBold",
-    color: colors.text.secondary,
-  },
-  totalPrice: {
-    fontSize: 18,
-    fontFamily: "Inter-ExtraBold",
-    color: colors.status.avaliable,
-  },
-});
