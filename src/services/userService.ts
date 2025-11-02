@@ -35,7 +35,6 @@ class UserService {
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.status === 409 || error.status === 400) {
-            console.log(error.response?.data)
             throw new ValidationError(error.response?.data)
         }
       }
