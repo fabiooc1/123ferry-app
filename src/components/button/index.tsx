@@ -10,6 +10,7 @@ type ButtonProps = {
   isSubmitting?: boolean;
   size?: 'full' | 'small' | 'icon';
   onPress: () => void;
+  disabled?: boolean
 };
 
 const containerStyleMap: Record<string, ViewStyle> = {
@@ -40,7 +41,8 @@ export default function Button({
   label,
   children,
   isSubmitting = false,
-  size = 'full'
+  size = 'full',
+  disabled = false,
 }: ButtonProps) {
 
   const containerStyle = containerStyleMap[variant];
@@ -73,9 +75,10 @@ export default function Button({
       style={({ pressed }) => [
         containerStyle,
         sizeContainerStyle,
-        (pressed || isSubmitting) && { opacity: 0.8 }
+        (pressed || isSubmitting) && { opacity: 0.8 },
+        (isSubmitting || disabled) && { opacity: 0.5 }
       ]}
-      disabled={isSubmitting}
+      disabled={isSubmitting || disabled}
       onPress={onPress}
     >
       {isSubmitting ? (
