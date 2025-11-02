@@ -24,13 +24,12 @@ const s = StyleSheet.create({
   },
   pageContent: {
     flex: 1,
-    paddingHorizontal: 22,
-    paddingBottom: 10,
     gap: 12,
   },
   pageTitle: {
     color: colors.text.primary,
     fontSize: 24,
     fontWeight: "800",
+    paddingLeft: 22
   }
 });
