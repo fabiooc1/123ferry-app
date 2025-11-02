@@ -12,14 +12,20 @@ import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ScheduleDetailsScreen() {
-  const { tripId }: { tripId: string } = useLocalSearchParams();
+  const { tripParamId }: { tripParamId: string } = useLocalSearchParams();
+  const tripId = Number(tripParamId)
   const navigate = useRouter();
 
   const { loadDataForTrip, currentTrip, passagers, vehicles, isLoading } =
     usePurchasePassager();
 
+  useEffect(() => {
+    loadPageContent();
+  }, [tripParamId]);
+
+
   async function loadPageContent() {
-    if (!tripId) return;
+    if (!tripParamId) return;
 
     try {
       loadDataForTrip(tripId);
@@ -32,10 +38,7 @@ export default function ScheduleDetailsScreen() {
     }
   }
 
-  useEffect(() => {
-    loadPageContent();
-  }, [tripId]);
-
+  
   if (isLoading) {
     return <PageContentLoading />;
   }
