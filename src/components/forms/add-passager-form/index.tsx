@@ -1,22 +1,25 @@
 import Button from "@/components/button";
 import { CPF_MASK } from "@/constants/masks";
+import { usePurchasePassager } from "@/contexts/PurshasePassagerContext";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
 import FormField from "../form-field";
 import SelectField from "../select-field";
-import { usePassagerTypes } from "./hooks/use-passager-types";
 import { AddPassagerFormData, addPassagerFormSchema } from "./schema";
 
-export default function AddPassagerForm() {
-  const [isSubmittingForm, setIsSubmittingForm] = useState(false)
-  const { isLoading, passagerTypes } = usePassagerTypes();
+interface AddPassagerFormProps {
+  onSuccess: () =>  void
+}
 
-  const selectOptions = !passagerTypes ? [] : passagerTypes?.map(passager => ({
+export default function AddPassagerForm({ onSuccess }: AddPassagerFormProps) {
+  const { passagerTypes, passagers, addPassager } = usePurchasePassager()
+
+  const selectOptions = passagerTypes.map(passager => ({
     label: passager.nome,
     value: String(passager.id)
   }))
+
 
   const form = useForm({
     resolver: zodResolver(addPassagerFormSchema),
@@ -28,7 +31,20 @@ export default function AddPassagerForm() {
     },
   });
 
-  async function handleOnAddPassager(data: AddPassagerFormData) {}
+  async function handleOnAddPassager(data: AddPassagerFormData) {
+    if (passagers.find(passager => passager.fullName === data.fullName)) {
+      form.setError("fullName", { message: "Já possui um passageiro com esse nome" })
+      return
+    }
+
+    if (passagers.find(passager => passager.cpf === data.fullName)) {
+      form.setError("cpf", { message: "Já possui um passageiro com esse cpf" })
+      return
+    }
+
+    addPassager(data)
+    onSuccess()
+  }
 
   return (
     <View style={s.form}>
