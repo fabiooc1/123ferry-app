@@ -13,7 +13,14 @@ interface HorizontalTripCardProps {
 
 export default function HorizontalTripCard({ trip }: HorizontalTripCardProps) {
   const navigate = useRouter()
-  function handleOnPurchaseButtonClick() {}
+  function handleOnPurchaseButtonClick() {
+    navigate.push({
+      pathname: "/(tabs)/(schedule-trip)/schedule-details",
+        params: {
+          tripId: trip.id.toString()
+        }
+    })
+  }
 
   return (
     <View style={s.cardContainer}>
