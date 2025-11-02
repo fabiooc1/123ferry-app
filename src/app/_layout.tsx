@@ -1,4 +1,5 @@
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { PurchasePassagerProvider } from "@/contexts/PurshasePassagerContext";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { useFonts } from "expo-font";
 import { Stack, useRouter, useSegments } from "expo-router";
@@ -59,11 +60,13 @@ function AuthGuardLayout() {
   }
 
   return (
-    <BottomSheetModalProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-    </BottomSheetModalProvider>
+    <PurchasePassagerProvider>
+      <BottomSheetModalProvider>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(auth)/login" />
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+      </BottomSheetModalProvider>
+    </PurchasePassagerProvider>
   );
 }
