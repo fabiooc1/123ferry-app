@@ -15,7 +15,7 @@ import { MaskedTextInput } from "react-native-mask-text";
 
 interface FormFieldProps extends TextInputProps {
   label: string;
-  type?: "text" | "password" | "email" | "number" | "date";
+  type?: "text" | "password" | "email" | "number" | "date" | 'plate';
   error?: string;
   mask?: string;
 }
@@ -43,8 +43,9 @@ export default function FormField({
     inputProps.autoCapitalize = "none";
   } else if (type === "password") {
     inputProps.secureTextEntry = !isPasswordVisible;
-  } else if (type === "number" || mask || type === "date") {
-    inputProps.keyboardType = "numeric";
+  } else if (type === "number" || type === "date") {
+  } else if (type === "plate") {
+    inputProps.autoCapitalize = "characters";
   }
 
   const hasError = !!error;
