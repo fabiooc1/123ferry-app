@@ -31,7 +31,7 @@ const s = StyleSheet.create({
   pageTitle: {
     color: colors.text.primary,
     fontSize: 24,
-    fontWeight: "800",
+    fontFamily: 'Inter-ExtraBold',
     paddingLeft: 22
   },
 });
