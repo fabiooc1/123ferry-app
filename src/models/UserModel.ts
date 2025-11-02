@@ -1,7 +1,7 @@
 import { PerfilModel } from "./PerfilModel";
 
 export interface UserModel {
-  id: bigint,
+  id: number,
   nomeCompleto: string,
   email: string,
   cpf: string,

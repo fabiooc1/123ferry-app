@@ -2,6 +2,7 @@ import { api } from "@/lib/axios"
 import { PassagerTypeModel } from "@/models/PassagerTypeModel"
 import { TripModel } from "@/models/TripModel"
 import { TripsPaginationModel } from "@/models/TripsPaginationModel"
+import { VehicleModel } from "@/models/VehicleModel"
 
 class TripService {
     async getAll(page: number, pageSize: number, routeId: number, departureDate: string): Promise<TripsPaginationModel> {
@@ -25,7 +26,7 @@ class TripService {
         }
     }
 
-    async get(tripId: bigint) {
+    async get(tripId: number) {
         try {
             const response = await api.get(`/viagem/${tripId}`)
 
@@ -44,10 +45,24 @@ class TripService {
             const response = await api.get('/tipo-passageiro')
 
             if (response.status !== 200) {
-                throw new Error("Não foi possível os tipos de passageiros")
+                throw new Error("Não foi possível buscar os tipos de passageiros")
             }
 
             return response.data as PassagerTypeModel[]
+        }  catch {
+            throw new Error("Serviço fora do ar. Tente novamente mais tarde")
+        }
+    }
+
+    async getAllVehicleModels(): Promise<VehicleModel[]> {
+        try {
+            const response = await api.get('/veiculo')
+
+            if (response.status !== 200) {
+                throw new Error("Não foi possível buscar os modelos de veículos")
+            }
+
+            return response.data as VehicleModel[]
         }  catch {
             throw new Error("Serviço fora do ar. Tente novamente mais tarde")
         }

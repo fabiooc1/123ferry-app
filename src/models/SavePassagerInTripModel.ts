@@ -1,5 +1,5 @@
 export interface SavePassagerInTripModel {
-    typeId: number
+    passagerTypeId: number
     fullName: string
     cpf: string
     bornDate: string

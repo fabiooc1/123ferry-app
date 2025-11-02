@@ -1,14 +1,15 @@
 export interface TripModel {
-  id: bigint;
-  ferryId: bigint;
-  rotaId: bigint;
+  id: number;
+  code: string;
+  ferryId: number;
+  rotaId: number;
   dataPartida: string;
   dataChegada: string;
-  criadaPorId: bigint;
+  criadaPorId: number;
   criadaEm: string;
   atualizadaEm: string;
   ferry: {
-    id: bigint;
+    id: number;
     nome: string;
     maximoDePessoas: number;
     maximoDeVeiculosEmM2: number;
@@ -18,8 +19,8 @@ export interface TripModel {
   rota: {
     id: number;
     nome: string;
-    origemId: bigint;
-    destinoId: bigint;
+    origemId: number;
+    destinoId: number;
   };
   quantidadeDePassageiros: number;
 };
