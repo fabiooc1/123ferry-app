@@ -66,7 +66,7 @@ const s = StyleSheet.create({
     fontFamily: "Inter-ExtraBold",
   },
   logo: {
-    width: 87,
-    height: 87,
+    width: 86,
+    height: 86,
   },
 });
