@@ -1,7 +1,5 @@
 export interface TripModel {
   id: number;
-  ferryId: number;
-  rotaId: number;
   dataPartida: string;
   dataChegada: string;
   criadaPorId: number;
