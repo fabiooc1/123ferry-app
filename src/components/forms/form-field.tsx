@@ -1,5 +1,7 @@
 import { colors } from "@/constants/colors";
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 import { CalendarIcon, EyeIcon, EyeSlashIcon } from "phosphor-react-native";
 import { useState } from "react";
 import {
@@ -15,9 +17,10 @@ import { MaskedTextInput } from "react-native-mask-text";
 
 interface FormFieldProps extends TextInputProps {
   label: string;
-  type?: "text" | "password" | "email" | "number" | "date" | 'plate';
+  type?: "text" | "password" | "email" | "number" | "date" | "plate";
   error?: string;
   mask?: string;
+  disabled?: boolean;
 }
 
 export default function FormField({
@@ -27,6 +30,7 @@ export default function FormField({
   mask,
   value,
   onChangeText,
+  disabled = false,
   ...props
 }: FormFieldProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -49,7 +53,11 @@ export default function FormField({
   }
 
   const hasError = !!error;
-  const iconColor = hasError ? colors.status.error : colors.text.secondary;
+  const iconColor = disabled
+    ? colors.text.placeholder
+    : hasError
+    ? colors.status.error
+    : colors.text.secondary;
 
   const handleMaskedChange = (text: string, rawText: string) => {
     if (onChangeText) {
@@ -58,19 +66,19 @@ export default function FormField({
   };
 
   const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    setShowDatePicker(Platform.OS === 'ios');
+    setShowDatePicker(Platform.OS === "ios");
     if (selectedDate && onChangeText) {
-      const formattedDate = selectedDate.toLocaleDateString('pt-BR');
+      const formattedDate = selectedDate.toLocaleDateString("pt-BR");
       onChangeText(formattedDate);
     }
   };
 
-  const dateMask = "99/99/9999"; 
-  const activeMask = type === 'date' ? dateMask : mask;
+  const dateMask = "99/99/9999";
+  const activeMask = type === "date" ? dateMask : mask;
 
   const getDateValue = () => {
-    if (!value || typeof value !== 'string') return new Date();
-    const parts = value.split('/');
+    if (!value || typeof value !== "string") return new Date();
+    const parts = value.split("/");
     if (parts.length === 3) {
       const [day, month, year] = parts.map(Number);
       if (day && month && year) {
@@ -85,44 +93,76 @@ export default function FormField({
 
   return (
     <View style={s.container}>
-      <Text style={[s.label, hasError && s.labelError]}>{label}</Text>
-      <View style={[s.inputContainer, hasError && s.inputError]}>
+      <Text
+        style={[s.label, hasError && s.labelError, disabled && s.labelDisabled]}
+      >
+        {label}
+      </Text>
+      <View
+        style={[
+          s.inputContainer,
+          hasError && s.inputError,
+          disabled && s.inputContainerDisabled,
+        ]}
+      >
         {activeMask ? (
           <MaskedTextInput
-            style={[s.input, hasError && s.inputError]}
+            style={[
+              s.input,
+              hasError && s.inputError,
+              disabled && s.inputDisabled,
+            ]}
             value={value}
             placeholderTextColor={colors.text.placeholder}
             {...inputProps}
             {...props}
             mask={activeMask}
-            onChangeText={handleMaskedChange} 
+            onChangeText={handleMaskedChange}
+            editable={!disabled}
           />
         ) : (
           <TextInput
-            style={[s.input, hasError && s.inputError]}
+            style={[
+              s.input,
+              hasError && s.inputError,
+              disabled && s.inputDisabled,
+            ]}
             value={value}
             onChangeText={onChangeText}
             placeholderTextColor={colors.text.placeholder}
             {...inputProps}
             {...props}
+            editable={!disabled}
           />
         )}
 
         {type === "password" && (
           <TouchableOpacity
+            disabled={disabled}
             onPress={() => setIsPasswordVisible(!isPasswordVisible)}
           >
             {isPasswordVisible ? (
               <EyeIcon size={20} color={iconColor} style={s.inputRightIcon} />
             ) : (
-              <EyeSlashIcon size={20} color={iconColor} style={s.inputRightIcon} />
+              <EyeSlashIcon
+                size={20}
+                color={iconColor}
+                style={s.inputRightIcon}
+              />
             )}
           </TouchableOpacity>
         )}
-        
+
         {type === "date" && (
-          <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-            <CalendarIcon size={20} color={iconColor} style={s.inputRightIcon} />
+          <TouchableOpacity
+            disabled={disabled}
+            onPress={() => setShowDatePicker(true)}
+          >
+            <CalendarIcon
+              size={20}
+              color={iconColor}
+              style={s.inputRightIcon}
+            />
           </TouchableOpacity>
         )}
       </View>
@@ -152,25 +192,34 @@ const s = StyleSheet.create({
   labelError: {
     color: colors.status.error,
   },
+  labelDisabled: {
+    color: colors.text.placeholder,
+  },
   inputContainer: {
     flexDirection: "row",
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: "center",
+    justifyContent: "space-between",
     borderRadius: 12,
     borderColor: colors.border.primary,
     borderWidth: 2,
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: colors.bg.secondary
+    backgroundColor: colors.bg.secondary,
+  },
+  inputContainerDisabled: {
+    opacity: 0.5,
   },
   input: {
     color: colors.text.tertiary,
     fontSize: 14,
     fontFamily: "Inter-Bold",
-    flex: 1
+    flex: 1,
+  },
+  inputDisabled: {
+    color: colors.text.placeholder,
   },
   inputRightIcon: {
-    marginLeft: 8
+    marginLeft: 8,
   },
   inputError: {
     color: colors.status.error,
@@ -179,5 +228,5 @@ const s = StyleSheet.create({
   errorText: {
     color: colors.status.error,
     fontSize: 12,
-  }
+  },
 });
