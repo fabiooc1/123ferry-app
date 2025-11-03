@@ -1,18 +1,17 @@
 import { TicketPassagerModel } from "./TicketPassagerModel";
-import { VehicleModel } from "./VehicleModel";
+import { TicketVehicleModel } from "./TicketVehicleModel";
+import { TripModel } from "./TripModel";
 
 export interface TicketModel {
   id: number;
-  viagemId: number;
-  code: string;
+  viagem: TripModel;
+  codigo: string;
   status: 'RESERVADA' | 'CANCELADA' | 'PAGA';
   reservadaEm: string;
   pagaEm: string;
   canceladaEm: string;
-
   passageiros: TicketPassagerModel[];
-  veiculos: VehicleModel[];
-
-  auditadaPorId: string;
+  veiculos: TicketVehicleModel[];
+  auditadaPorId: number | null;
   adquiridaPorId: number;
 }
