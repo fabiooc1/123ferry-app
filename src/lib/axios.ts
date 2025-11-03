@@ -1,5 +1,6 @@
 import { jwtKeyPath } from '@/constants/security';
 import axios from 'axios';
+import { router } from 'expo-router';
 import { getItem } from "expo-secure-store";
 
 
@@ -17,3 +18,14 @@ api.interceptors.request.use((request) => {
 
   return request;
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response && error.response.status === 401) {
+      router.replace('/login'); 
+    }
+    
+    return Promise.reject(error);
+  }
+);
