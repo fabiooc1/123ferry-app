@@ -3,6 +3,7 @@ import { PerfilModel } from "./PerfilModel";
 export interface UserModel {
   id: number,
   nomeCompleto: string,
+  telefone: string,
   email: string,
   cpf: string,
   dataNascimento: string,
