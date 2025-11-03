@@ -37,6 +37,16 @@ export const s = StyleSheet.create({
     color: colors.text.secondary,
   },
 
+  dangerContainer: {
+    ...BASE_CONTAINER_STYLE,
+    backgroundColor: colors.status.error,
+  },
+  dangerText: {
+    ...BASE_TEXT_STYLE,
+    color: colors.text.onAccent,
+  },
+
+
   smallContainer: {
     width: 'auto',
     paddingVertical: 6,

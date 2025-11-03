@@ -4,7 +4,7 @@ import { ActivityIndicator, Pressable, Text, TextStyle, ViewStyle } from "react-
 import { s } from './styles';
 
 type ButtonProps = {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'danger';
   label?: string;
   children?: ReactNode;
   isSubmitting?: boolean;
@@ -16,11 +16,13 @@ type ButtonProps = {
 const containerStyleMap: Record<string, ViewStyle> = {
   primary: s.primaryContainer,
   secondary: s.secondaryContainer,
+  danger: s.dangerContainer
 };
 
 const textStyleMap: Record<string, TextStyle> = {
   primary: s.primaryText,
   secondary: s.secondaryText,
+  danger: s.dangerText
 };
 
 const sizeContainerStyleMap: Record<string, ViewStyle> = {
