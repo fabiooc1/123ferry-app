@@ -6,7 +6,6 @@ export const s = StyleSheet.create({
     backgroundColor: colors.bg.secondary,
     borderColor: colors.border.primary,
     borderWidth: 2,
-
     borderRadius: 12,
     padding: 10,
   },
@@ -17,7 +16,7 @@ export const s = StyleSheet.create({
   },
   headerTitle: {
     color: colors.text.primary,
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: "Inter-SemiBold",
     flex: 1,
     paddingRight: 10,

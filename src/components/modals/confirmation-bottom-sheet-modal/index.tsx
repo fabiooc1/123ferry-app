@@ -1,3 +1,4 @@
+import Button from "@/components/button";
 import { colors } from "@/constants/colors";
 import {
   BottomSheetBackdrop,
@@ -9,7 +10,6 @@ import {
 import { WarningCircleIcon } from "phosphor-react-native";
 import React, { forwardRef, useCallback, useMemo } from "react";
 import { Text, View } from "react-native";
-import Button from "../button";
 import { s } from "./styles";
 
 type BottomSheetRef = BottomSheetModal;
@@ -63,7 +63,7 @@ const ConfirmationBottomSheetModal = forwardRef<
       handleIndicatorStyle={s.handle}
     >
       <BottomSheetView style={s.contentContainer}>
-        <WarningCircleIcon size={48} color={colors.status.error} style={s.icon} />
+        <WarningCircleIcon size={48} color={colors.status.danger} style={s.icon} />
         
         <Text style={s.title}>{title}</Text>
         

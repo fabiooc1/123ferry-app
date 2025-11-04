@@ -17,7 +17,7 @@ export const s = StyleSheet.create({
   },
   headerTitle: {
     color: colors.text.primary,
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: "Inter-SemiBold",
     flex: 1,
     paddingRight: 10,

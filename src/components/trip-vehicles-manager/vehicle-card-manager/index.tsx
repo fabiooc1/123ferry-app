@@ -1,4 +1,4 @@
-import ConfirmationBottomSheetModal from "@/components/confirmation-bottom-sheet-modal";
+import ConfirmationBottomSheetModal from "@/components/modals/confirmation-bottom-sheet-modal";
 import { colors } from "@/constants/colors";
 import { usePurchasePassager } from "@/contexts/PurshasePassagerContext";
 import { SaveVehicleInTripModel } from "@/models/SaveVehicleInTripModel";
@@ -16,9 +16,9 @@ export default function VehicleCardManager({
   vehicle,
 }: VehicleCardManagerProps) {
   const confirmationModalRef = useRef<BottomSheetModal>(null);
-  const { removeVehicle, vehicleModels } = usePurchasePassager();
+  const { removeVehicle, vehiclesCategories } = usePurchasePassager();
 
-  const vehicleModelInfos = vehicleModels.find(vehicleModel => Number(vehicleModel.id) === vehicle.vehicleModelId)
+  const vehicleCategoriesInfos = vehiclesCategories.find(vehicleCategory => Number(vehicleCategory.id) === vehicle.vehicleModelId)
 
   function handleConfirmDelete(plate: string) {
     removeVehicle(plate);
@@ -28,7 +28,7 @@ export default function VehicleCardManager({
     <>
       <View style={s.container}>
         <View style={s.startContainer}>
-          {vehicleModelInfos && (<Text style={s.vehicleModel}>{vehicleModelInfos.nome}</Text>)}
+          {vehicleCategoriesInfos && (<Text style={s.vehicleModel}>{vehicleCategoriesInfos.nome}</Text>)}
           <Text style={s.vehiclePlate}>{vehicle.plate}</Text>
         </View>
 
@@ -47,7 +47,7 @@ export default function VehicleCardManager({
             accessibilityRole="button"
             accessibilityLabel={`Excluir veículo ${vehicle.plate}`}
           >
-            <TrashIcon color={colors.status.error} size={16} />
+            <TrashIcon color={colors.status.danger} size={16} />
           </Pressable>
         </View>
       </View>

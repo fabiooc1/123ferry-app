@@ -12,8 +12,8 @@ export default function HomeScreen() {
       <View style={s.pageContent}>
         <Text style={s.pageTitle}>Passagens para hoje</Text>
         
-        <TodayTrips title="São Luís -> Conjupe" routeId={1} />
-        <TodayTrips title="Conjupe -> São Luís" routeId={2} />
+        <TodayTrips title="São Luís -> Alcântara" routeId={1} />
+        <TodayTrips title="Alcântara -> São Luís" routeId={2} />
       </View>
     </SafeAreaView>
   );

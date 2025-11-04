@@ -1,5 +1,5 @@
 export interface SaveVehicleInTripModel {
-  vehicleModelId: number;
+  vehicleCategoryId: number;
   plate: string;
   driverCpf: string;
 }

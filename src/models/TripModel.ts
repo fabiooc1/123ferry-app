@@ -1,3 +1,6 @@
+import { FerryModel } from "./FerryModel";
+import { RouteModel } from "./RouteModel";
+
 export interface TripModel {
   id: number;
   dataPartida: string;
@@ -5,19 +8,7 @@ export interface TripModel {
   criadaPorId: number;
   criadaEm: string;
   atualizadaEm: string;
-  ferry: {
-    id: number;
-    nome: string;
-    maximoDePessoas: number;
-    maximoDeVeiculosEmM2: number;
-    registradoEm: string;
-    atualizadoEm: string;
-  };
-  rota: {
-    id: number;
-    nome: string;
-    origemId: number;
-    destinoId: number;
-  };
+  ferry: FerryModel;
+  rota: RouteModel;
   quantidadeDePassageiros: number;
 };

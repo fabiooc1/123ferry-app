@@ -1,3 +1,4 @@
+import AddPassagerForm from "@/components/forms/add-passager-form";
 import { colors } from "@/constants/colors";
 import {
   BottomSheetBackdrop,
@@ -15,7 +16,6 @@ import {
   Text,
   View
 } from "react-native";
-import AddPassagerForm from "../forms/add-passager-form";
 import { s } from "./styles";
 
 type BottomSheetRef = BottomSheetModal;

@@ -8,7 +8,7 @@ export interface CreateTicketDto {
     }[],
     veiculos: {
         placa: string
-        veiculoId: number
+        veiculoCategoriaId: number
         motoristaCpf: string
     }[]
 }

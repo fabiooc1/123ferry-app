@@ -26,7 +26,7 @@ const s = StyleSheet.create({
         gap: 12
     },
     title: {
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: "Inter-Bold",
         color: colors.text.secondary
     },

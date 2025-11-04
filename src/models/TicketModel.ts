@@ -8,10 +8,10 @@ export interface TicketModel {
   codigo: string;
   status: 'RESERVADA' | 'CANCELADA' | 'PAGA';
   reservadaEm: string;
-  pagaEm: string;
-  canceladaEm: string;
+  pagaEm: string | undefined;
+  canceladaEm: string | undefined;
   passageiros: TicketPassagerModel[];
   veiculos: TicketVehicleModel[];
-  auditadaPorId: number | null;
+  auditadaPorId: number | undefined;
   adquiridaPorId: number;
 }

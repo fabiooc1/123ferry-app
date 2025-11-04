@@ -39,7 +39,7 @@ export const s = StyleSheet.create({
 
   dangerContainer: {
     ...BASE_CONTAINER_STYLE,
-    backgroundColor: colors.status.error,
+    backgroundColor: colors.status.danger,
   },
   dangerText: {
     ...BASE_TEXT_STYLE,

@@ -1,8 +1,8 @@
 import Button from "@/components/button";
 import Header from "@/components/header";
 import PageContentLoading from "@/components/page-content-loading";
+import Sammary from "@/components/sammary";
 import TripHeader from "@/components/trip-header";
-import TripSammaryCard from "@/components/trip-sammary-card";
 import { colors } from "@/constants/colors";
 import { usePurchasePassager } from "@/contexts/PurshasePassagerContext";
 import { ticketService } from "@/services/ticketService";
@@ -15,7 +15,7 @@ export default function CheckoutScreen() {
   const {
     currentTrip,
     passagerTypes,
-    vehicleModels,
+    vehiclesCategories,
     passagers,
     vehicles,
     isLoading,
@@ -48,8 +48,8 @@ export default function CheckoutScreen() {
       };
     }),
     vehicles: vehicles.map((vehicle) => {
-      const model = vehicleModels.find(
-        (m) => Number(m.id) === vehicle.vehicleModelId
+      const model = vehiclesCategories.find(
+        (m) => Number(m.id) === vehicle.vehicleCategoryId
       );
 
       return {
@@ -72,7 +72,7 @@ export default function CheckoutScreen() {
           dataNascimento: passager.bornDate
         })),
         veiculos: vehicles.map((vehicle) => ({
-          veiculoId: vehicle.vehicleModelId,
+          veiculoCategoriaId: vehicle.vehicleCategoryId,
           motoristaCpf: vehicle.driverCpf,
           placa: vehicle.plate
         }))
@@ -104,7 +104,7 @@ export default function CheckoutScreen() {
         contentContainerStyle={s.scrollContentContainer}
       >
         <TripHeader title="Confirmando Reserva" trip={currentTrip} />
-        <TripSammaryCard data={cardSammaryData} />
+        <Sammary data={cardSammaryData} isCard={true} />
       </ScrollView>
 
       <View style={s.footerContainer}>

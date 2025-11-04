@@ -1,3 +1,4 @@
+import AddVehicleForm from "@/components/forms/add-vehicle-form";
 import { colors } from "@/constants/colors";
 import {
   BottomSheetBackdrop,
@@ -15,7 +16,6 @@ import {
   Text,
   View
 } from "react-native";
-import AddVehicleForm from "../forms/add-vehicle-form";
 import { s } from "./styles";
 
 type BottomSheetRef = BottomSheetModal;

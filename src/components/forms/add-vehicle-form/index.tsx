@@ -13,12 +13,12 @@ interface AddVehicleFormProps {
 }
 
 export default function AddVehicleForm({ onSuccess }: AddVehicleFormProps) {
-  const { vehicleModels, addVehicle, vehicles, passagers } = usePurchasePassager();
+  const { vehiclesCategories, addVehicle, vehicles, passagers } = usePurchasePassager();
 
   const form = useForm({
     resolver: zodResolver(addVehicleFormSchema),
     defaultValues: {
-      vehicleModelId: 0,
+      vehicleCategoryId: 0,
       plate: "",
       driverCpf: "",
     },
@@ -34,7 +34,7 @@ export default function AddVehicleForm({ onSuccess }: AddVehicleFormProps) {
     onSuccess()
   }
 
-  const vehiclesModelsSelectOptions = vehicleModels.map((vehicleModel) => ({
+  const vehiclesCategoriesSelectOptions = vehiclesCategories.map((vehicleModel) => ({
     label: vehicleModel.nome,
     value: String(vehicleModel.id),
   }));
@@ -57,15 +57,15 @@ export default function AddVehicleForm({ onSuccess }: AddVehicleFormProps) {
     <View style={s.form}>
       <Controller
         control={form.control}
-        name="vehicleModelId"
+        name="vehicleCategoryId"
         render={({ field: { onChange, value } }) => (
           <SelectField
             label="Selecione o modelo*"
-            options={vehiclesModelsSelectOptions}
+            options={vehiclesCategoriesSelectOptions}
             onValueChange={onChange}
             selectedValue={value}
             placeholder="Modelo do veículo"
-            error={form.formState.errors.vehicleModelId?.message}
+            error={form.formState.errors.vehicleCategoryId?.message}
           />
         )}
       />
