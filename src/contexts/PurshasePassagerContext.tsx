@@ -2,7 +2,7 @@ import { PassagerTypeModel } from "@/models/PassagerTypeModel";
 import { SavePassagerInTripModel } from "@/models/SavePassagerInTripModel";
 import { SaveVehicleInTripModel } from "@/models/SaveVehicleInTripModel";
 import { TripModel } from "@/models/TripModel";
-import { VehicleModel } from "@/models/VehicleModel";
+import { VehicleCategory } from "@/models/VehicleCategory";
 import { tripService } from "@/services/tripService";
 import React, { createContext, useContext, useState } from "react";
 
@@ -16,7 +16,7 @@ interface PurchasePassagerContextProps {
   removeVehicle: (plate: string) => void;
   
   passagerTypes: PassagerTypeModel[];
-  vehicleModels: VehicleModel[];
+  vehiclesCategories: VehicleCategory[];
   
   currentTrip: TripModel | null;
   loadDataForTrip: (tripId: number) => void;
@@ -33,7 +33,7 @@ export function PurchasePassagerProvider({ children }: { children: React.ReactNo
 
   const [currentTrip, setCurrentTrip] = useState<TripModel | null>(null);
   const [passagerTypes, setPassagerTypes] = useState<PassagerTypeModel[]>([]);
-  const [vehicleModels, setVehicleModels] = useState<VehicleModel[]>([]);
+  const [vehiclesCategories, setVehiclesCategories] = useState<VehicleCategory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   function addPassager(newPassager: SavePassagerInTripModel) {
@@ -63,20 +63,20 @@ export function PurchasePassagerProvider({ children }: { children: React.ReactNo
 
     try {
       setIsLoading(true);
-      const [tripData, passagerTypesData, vehicleModelsData] = await Promise.all([
+      const [tripData, passagerTypesData, vehicleCategoriesData] = await Promise.all([
         tripService.get(tripId),
         tripService.getAllPassagerTypes(),
-        tripService.getAllVehicleModels()
+        tripService.getAllVehicleCategories()
       ]);
 
       setCurrentTrip(tripData);
       setPassagerTypes(passagerTypesData);
-      setVehicleModels(vehicleModelsData);
+      setVehiclesCategories(vehicleCategoriesData);
     } catch (error) {
       console.error("Failed to load trip data:", error);
       setCurrentTrip(null);
       setPassagerTypes([]);
-      setVehicleModels([]);
+      setVehiclesCategories([]);
     } finally {
       setIsLoading(false);
     }
@@ -91,7 +91,7 @@ export function PurchasePassagerProvider({ children }: { children: React.ReactNo
       addVehicle,
       removeVehicle,
       passagerTypes,
-      vehicleModels,
+      vehiclesCategories,
       isLoading,
       currentTrip,
       loadDataForTrip,
