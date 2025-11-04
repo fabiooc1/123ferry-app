@@ -4,28 +4,27 @@ import InfoItem from "@/components/info-item";
 import Line from "@/components/Line";
 import ConfirmationBottomSheetModal from "@/components/modals/confirmation-bottom-sheet-modal";
 import PageContentLoading from "@/components/page-content-loading";
-import Tag, { TagVariant } from "@/components/Tag";
 import TicketPassagers from "@/components/ticket-passagers";
+import TicketRouter from "@/components/ticket-router";
 import TicketVehicles from "@/components/ticket-vehicles";
 import TicketSammary from "@/components/TicketSammary";
 import { colors } from "@/constants/colors";
 import { TicketModel } from "@/models/TicketModel";
 import { ticketService } from "@/services/ticketService";
-import { formatDate, formatDateTime, getHours } from "@/utils/date";
+import { formatDate, formatDateTime } from "@/utils/date";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { BoatIcon } from "phosphor-react-native";
 import { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PurchaseDetailsScreen() {
-  const confirmationModalRef = useRef<BottomSheetModal>(null);
   const { ticketCode }: { ticketCode: string } = useLocalSearchParams();
-  const navigate = useRouter();
-
   const [isLoading, setIsLoading] = useState(true);
   const [ticket, setTicket] = useState<TicketModel | null>(null);
+
+  const navigate = useRouter();
+  const confirmationModalRef = useRef<BottomSheetModal>(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -47,16 +46,11 @@ export default function PurchaseDetailsScreen() {
   }
 
   if (!ticket) {
+    //navigate to not found
     return null;
   }
 
   async function handleOnCancelTicket() {}
-
-  const statusTags = {
-    RESERVADA: "info",
-    PAGA: "success",
-    CANCELADA: "danger",
-  };
 
   return (
     <>
@@ -68,36 +62,18 @@ export default function PurchaseDetailsScreen() {
           contentContainerStyle={s.scrollContentContainer}
         >
           <View style={s.ticketContainer}>
-            <View style={[s.startTicketSection, s.ticketSection]}>
-              <View style={s.routerContainer}>
-                <Text style={s.routeCity}>
-                  {ticket.viagem.rota.origem.cidade}
-                </Text>
-
-                <Text style={s.routeTime}>
-                  {getHours(ticket.viagem.dataPartida)}
-                </Text>
-              </View>
-
-              <View style={s.centerContainer}>
-                <BoatIcon size={28} color={colors.text.primary} />
-                <Tag
-                  variant={statusTags[ticket.status] as TagVariant}
-                  label={ticket.status}
-                />
-              </View>
-
-              <View style={s.routerContainer}>
-                <Text style={[s.routeCity, s.alignRight]}>
-                  {ticket.viagem.rota.destino.cidade}
-                </Text>
-
-                <Text style={[s.routeTime, s.alignRight]}>
-                  {getHours(ticket.viagem.dataChegada)}
-                </Text>
-              </View>
-            </View>
-
+            <TicketRouter
+              presentation="ticket"
+              status={ticket.status}
+              arrival={{
+                city: ticket.viagem.rota.destino.cidade,
+                dataChegada: ticket.viagem.dataChegada,
+              }}
+              departure={{
+                city: ticket.viagem.rota.origem.cidade,
+                dataPartida: ticket.viagem.dataPartida,
+              }}
+            />
             <Line borderType="dashed" marginHorizontal={22} />
 
             <View style={s.ticketSection}>
@@ -201,33 +177,7 @@ const s = StyleSheet.create({
     padding: 22,
     gap: 12,
   },
-  startTicketSection: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 16,
-  },
-  routerContainer: {
-    flex: 1,
-    gap: 4,
-  },
-  routeCity: {
-    fontSize: 20,
-    fontFamily: "Inter-Bold",
-    color: colors.text.primary,
-  },
-  routeTime: {
-    fontSize: 16,
-    fontFamily: "Inter-SemiBold",
-    color: colors.text.secondary,
-  },
-  alignRight: {
-    textAlign: "right",
-  },
-  centerContainer: {
-    gap: 8,
-    alignItems: "center",
-  },
+  
   gridInfos: {
     gap: 12,
   },
