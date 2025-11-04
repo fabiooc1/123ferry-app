@@ -67,7 +67,7 @@ const s = StyleSheet.create({
     color: colors.text.placeholder,
   },
   labelError: {
-    color: colors.status.error,
+    color: colors.status.danger,
   },
   inputContainer: {
     width: '100%',
@@ -78,7 +78,7 @@ const s = StyleSheet.create({
     paddingHorizontal: 6
   },
   inputError: {
-    borderColor: colors.status.error,
+    borderColor: colors.status.danger,
   },
   picker: {
     color: colors.text.tertiary,
@@ -92,7 +92,7 @@ const s = StyleSheet.create({
     fontSize: 14,
   },
   errorText: {
-    color: colors.status.error,
+    color: colors.status.danger,
     fontSize: 12,
   }
 });

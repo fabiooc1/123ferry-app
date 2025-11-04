@@ -48,9 +48,9 @@ export default function ProfileScreen() {
               hitSlop={10}
             >
               {isOutingUser ? (
-                <ActivityIndicator size="small" color={colors.status.error} />
+                <ActivityIndicator size="small" color={colors.status.danger} />
               ) : (
-                <SignOutIcon size={26} color={colors.status.error} />
+                <SignOutIcon size={26} color={colors.status.danger} />
               )}
             </Pressable>
           </View>
@@ -86,7 +86,7 @@ const s = StyleSheet.create({
     paddingVertical: 4,
   },
   logoutButtonText: {
-    color: colors.status.error,
+    color: colors.status.danger,
     fontSize: 16,
     fontFamily: "Inter-Bold",
   },

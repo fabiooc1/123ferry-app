@@ -12,7 +12,7 @@ type EmptyListProps = {
 export default function EmptyList({ title, description, width }: EmptyListProps) {
     return (
         <View style={[s.container, { width }]}>
-            <ClipboardTextIcon size={30} color={colors.status.error} />
+            <ClipboardTextIcon size={30} color={colors.status.danger} />
 
             <Text style={s.title}>{title}</Text>
             <Text style={s.description}>{description}</Text>

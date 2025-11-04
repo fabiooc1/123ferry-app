@@ -56,7 +56,7 @@ export default function FormField({
   const iconColor = disabled
     ? colors.text.placeholder
     : hasError
-    ? colors.status.error
+    ? colors.status.danger
     : colors.text.secondary;
 
   const handleMaskedChange = (text: string, rawText: string) => {
@@ -190,7 +190,7 @@ const s = StyleSheet.create({
     color: colors.text.secondary,
   },
   labelError: {
-    color: colors.status.error,
+    color: colors.status.danger,
   },
   labelDisabled: {
     color: colors.text.placeholder,
@@ -222,11 +222,11 @@ const s = StyleSheet.create({
     marginLeft: 8,
   },
   inputError: {
-    color: colors.status.error,
-    borderColor: colors.status.error,
+    color: colors.status.danger,
+    borderColor: colors.status.danger,
   },
   errorText: {
-    color: colors.status.error,
+    color: colors.status.danger,
     fontSize: 12,
   },
 });
