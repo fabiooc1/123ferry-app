@@ -18,7 +18,7 @@ export default function VehicleCardManager({
   const confirmationModalRef = useRef<BottomSheetModal>(null);
   const { removeVehicle, vehiclesCategories } = usePurchasePassager();
 
-  const vehicleCategoriesInfos = vehiclesCategories.find(vehicleCategory => Number(vehicleCategory.id) === vehicle.vehicleModelId)
+  const vehicleCategoriesInfos = vehiclesCategories.find(vehicleCategory => Number(vehicleCategory.id) === vehicle.vehicleCategoryId)
 
   function handleConfirmDelete(plate: string) {
     removeVehicle(plate);

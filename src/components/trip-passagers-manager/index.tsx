@@ -1,9 +1,9 @@
+import AddPassagerBottomSheetModal from "@/components/modals/add-passager-bottom-sheet-modal";
 import { usePurchasePassager } from "@/contexts/PurshasePassagerContext";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { PlusIcon } from "phosphor-react-native";
 import { useRef } from "react";
 import { Text, View } from "react-native";
-import AddPassagerBottomSheetModal from "../add-passager-bottom-sheet-modal";
 import Button from "../button";
 import EmptyList from "../empty-list";
 import PassagerCardManager from "./passager-card-manager";

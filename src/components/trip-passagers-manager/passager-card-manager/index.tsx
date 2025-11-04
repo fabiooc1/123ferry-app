@@ -1,4 +1,4 @@
-import ConfirmationBottomSheetModal from "@/components/confirmation-bottom-sheet-modal";
+import ConfirmationBottomSheetModal from "@/components/modals/confirmation-bottom-sheet-modal";
 import { colors } from "@/constants/colors";
 import { usePurchasePassager } from "@/contexts/PurshasePassagerContext";
 import { SavePassagerInTripModel } from "@/models/SavePassagerInTripModel";
@@ -42,7 +42,7 @@ export default function PassagerCardManager({
             accessibilityRole="button"
             accessibilityLabel={`Excluir passageiro ${passager.fullName}`}
           >
-            <TrashIcon color={colors.status.error} size={16} />
+            <TrashIcon color={colors.status.danger} size={16} />
           </Pressable>
         </View>
       </View>
