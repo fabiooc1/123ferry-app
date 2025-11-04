@@ -2,13 +2,13 @@ import Button from "@/components/button";
 import Header from "@/components/header";
 import PageContentLoading from "@/components/page-content-loading";
 import Sammary from "@/components/sammary";
-import TripHeader from "@/components/trip-header";
+import TicketRouter from "@/components/ticket-router";
 import { colors } from "@/constants/colors";
 import { usePurchasePassager } from "@/contexts/PurshasePassagerContext";
 import { ticketService } from "@/services/ticketService";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, ScrollView, StyleSheet, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CheckoutScreen() {
@@ -19,7 +19,7 @@ export default function CheckoutScreen() {
     passagers,
     vehicles,
     isLoading,
-    purchaseDone
+    purchaseDone,
   } = usePurchasePassager();
   const navigate = useRouter();
   const [isBooking, setIsBooking] = useState(false);
@@ -34,9 +34,7 @@ export default function CheckoutScreen() {
 
   const cardSammaryData = {
     passagers: passagers.map((passager) => {
-      const type = passagerTypes.find(
-        (t) => t.id === passager.passagerTypeId
-      );
+      const type = passagerTypes.find((t) => t.id === passager.passagerTypeId);
 
       const names = passager.fullName.split(" ");
 
@@ -69,26 +67,26 @@ export default function CheckoutScreen() {
           nomeCompleto: passager.fullName,
           tipoId: passager.passagerTypeId,
           cpf: passager.cpf,
-          dataNascimento: passager.bornDate
+          dataNascimento: passager.bornDate,
         })),
         veiculos: vehicles.map((vehicle) => ({
           veiculoCategoriaId: vehicle.vehicleCategoryId,
           motoristaCpf: vehicle.driverCpf,
-          placa: vehicle.plate
-        }))
-      })
+          placa: vehicle.plate,
+        })),
+      });
 
       navigate.replace({
         pathname: "/(tabs)/(purchases)/purchase-details",
         params: {
-          ticketId: ticket.id
-        }
-      })
+          ticketId: ticket.id,
+        },
+      });
 
-      purchaseDone()
+      purchaseDone();
     } catch (error) {
       if (error instanceof Error) {
-        Alert.alert("Error: ", error.message)
+        Alert.alert("Error: ", error.message);
       }
     } finally {
       setIsBooking(false);
@@ -103,7 +101,21 @@ export default function CheckoutScreen() {
         style={s.scrollContainer}
         contentContainerStyle={s.scrollContentContainer}
       >
-        <TripHeader title="Confirmando Reserva" trip={currentTrip} />
+        <View style={{ gap: 12 }}>
+          <Text style={s.pageTitle}>Confirmando passagem</Text>
+
+          <TicketRouter
+            presentation="trip"
+            arrival={{
+              city: currentTrip.rota.destino.cidade,
+              dataChegada: currentTrip.dataChegada,
+            }}
+            departure={{
+              city: currentTrip.rota.origem.cidade,
+              dataPartida: currentTrip.dataPartida,
+            }}
+          />
+        </View>
         <Sammary data={cardSammaryData} isCard={true} />
       </ScrollView>
 
@@ -122,6 +134,11 @@ const s = StyleSheet.create({
   pageContainer: {
     flex: 1,
     backgroundColor: colors.bg.primary,
+  },
+  pageTitle: {
+    color: colors.text.primary,
+    fontSize: 24,
+    fontFamily: "Inter-ExtraBold",
   },
   scrollContainer: {
     flex: 1,
