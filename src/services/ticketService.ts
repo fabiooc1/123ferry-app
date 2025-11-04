@@ -45,10 +45,6 @@ class TicketService {
         },
       });
 
-      if (response.status !== 200) {
-        throw new Error("Não foi possível buscar as suas passagens");
-      }
-
       return response.data as TicketsPaginationModel;
     } catch {
       throw new Error("Serviço fora do ar. Tente novamente mais tarde");
