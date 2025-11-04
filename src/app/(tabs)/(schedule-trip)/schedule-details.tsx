@@ -1,19 +1,19 @@
 import Button from "@/components/button";
 import Header from "@/components/header";
 import PageContentLoading from "@/components/page-content-loading";
-import TripHeader from "@/components/trip-header";
+import TicketRouter from "@/components/ticket-router";
 import TripPassagersManager from "@/components/trip-passagers-manager";
 import TripVehiclesManager from "@/components/trip-vehicles-manager";
 import { colors } from "@/constants/colors";
 import { usePurchasePassager } from "@/contexts/PurshasePassagerContext";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
-import { Alert, ScrollView, StyleSheet, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ScheduleDetailsScreen() {
   const { tripParamId }: { tripParamId: string } = useLocalSearchParams();
-  const tripId = Number(tripParamId)
+  const tripId = Number(tripParamId);
   const navigate = useRouter();
 
   const { loadDataForTrip, currentTrip, passagers, vehicles, isLoading } =
@@ -22,7 +22,6 @@ export default function ScheduleDetailsScreen() {
   useEffect(() => {
     loadPageContent();
   }, [tripParamId]);
-
 
   async function loadPageContent() {
     if (!tripParamId) return;
@@ -38,9 +37,12 @@ export default function ScheduleDetailsScreen() {
     }
   }
 
-  
   if (isLoading) {
     return <PageContentLoading />;
+  }
+
+  if (!currentTrip) {
+    return null;
   }
 
   const isValidPushUserToCheckoutPage = () => {
@@ -70,7 +72,21 @@ export default function ScheduleDetailsScreen() {
       >
         {currentTrip && (
           <>
-            <TripHeader title="Detalhes da passagem" trip={currentTrip} />
+            <View style={{ gap: 12 }}>
+              <Text style={s.pageTitle}>Detalhes da passagem</Text>
+
+              <TicketRouter
+                presentation="trip"
+                arrival={{
+                  city: currentTrip.rota.destino.cidade,
+                  dataChegada: currentTrip.dataChegada,
+                }}
+                departure={{
+                  city: currentTrip.rota.origem.cidade,
+                  dataPartida: currentTrip.dataPartida,
+                }}
+              />
+            </View>
             <TripPassagersManager />
             <TripVehiclesManager />
           </>
@@ -92,6 +108,11 @@ const s = StyleSheet.create({
   pageContainer: {
     flex: 1,
     backgroundColor: colors.bg.primary,
+  },
+  pageTitle: {
+    color: colors.text.primary,
+    fontSize: 24,
+    fontFamily: "Inter-ExtraBold",
   },
   scrollContainer: {
     flex: 1,
