@@ -1,9 +1,10 @@
 import { jwtKeyPath } from "@/constants/security";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { router } from "expo-router";
 import { getItem } from "expo-secure-store";
 
 export const api = axios.create({
-  baseURL: "http://192.168.100.29:3000",
+  baseURL: "http://192.168.251.29:3000",
   timeout: 8000, // 8 seconds
 });
 
@@ -17,14 +18,19 @@ api.interceptors.request.use((request) => {
   return request;
 });
 
-// api.interceptors.response.use(
-//   (response) => response,
-//   async (error: AxiosError) => {
-//     if (error.response && error.response.config.url !== "/auth/login" && error.response.status === 401) {
-//       await deleteItemAsync(jwtKeyPath)
-//       router.replace("/login");
-//     }
+api.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    console.log(error.response?.status)
 
-//     return Promise.reject(error);
-//   }
-// );
+    const ignoreRoutes = ["/auth/login", "/usuario/me"]
+
+    if (!ignoreRoutes.includes(error.config?.url || "")) {
+      if (error.response?.status === 401) {
+        router.replace("/(auth)/login")
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);

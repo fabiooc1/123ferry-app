@@ -2,7 +2,7 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { PurchasePassagerProvider } from "@/contexts/PurshasePassagerContext";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { useFonts } from "expo-font";
-import { Stack, useRouter, useSegments } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -37,7 +37,6 @@ export default function RootLayout() {
 }
 function AuthGuardLayout() {
   const { user, isLoadingUser } = useAuth();
-  const segments = useSegments();
   const router = useRouter();
 
   useEffect(() => {
@@ -46,14 +45,12 @@ function AuthGuardLayout() {
     }
 
     SplashScreen.hideAsync();
-    const inAuthGroup = segments[0] === "(auth)";
 
-    if (!user && !inAuthGroup) {
+    if (!user) {
       router.replace("/(auth)/login");
-    } else if (user && inAuthGroup) {
-      router.replace("/(tabs)");
     }
-  }, [user, isLoadingUser, segments, router]);
+
+  }, [user, isLoadingUser, router]);
 
   if (isLoadingUser) {
     return null;
