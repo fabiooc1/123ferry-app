@@ -50,6 +50,20 @@ class TicketService {
       throw new Error("Serviço fora do ar. Tente novamente mais tarde");
     }
   }
+
+  async cancel(ticketId: number): Promise<void> {
+    try {
+      const response = await api.patch(`/passagem/${ticketId}/cancelar`);
+
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw error
+      }
+
+      throw new Error("Serviço fora do ar. Tente novamente mais tarde");
+    }
+  }
 }
 
 export const ticketService = new TicketService();
