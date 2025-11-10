@@ -21,8 +21,6 @@ api.interceptors.request.use((request) => {
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    console.log(error.response?.status)
-
     const ignoreRoutes = ["/auth/login", "/usuario/me"]
 
     if (!ignoreRoutes.includes(error.config?.url || "")) {
