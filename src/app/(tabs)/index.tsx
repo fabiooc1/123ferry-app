@@ -2,7 +2,7 @@ import Header from "@/components/header";
 import TodayTrips from "@/components/today-trips";
 import { useTodayTrips } from "@/components/today-trips/hooks/use-today-trips";
 import { colors } from "@/constants/colors";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { RefreshControl, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,17 +13,17 @@ export default function HomeScreen() {
   const { isLoading: isLoadingRoute1, tripsPaginationData: tripsPaginationDataRoute1, loadTrips: refetchRoute1 } = useTodayTrips(1)
   const { isLoading: isLoadingRoute2, tripsPaginationData: tripsPaginationDataRoute2, loadTrips: refetchRoute2 } = useTodayTrips(2)
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    Promise.all([
-      refetchRoute1,
-      refetchRoute2,
-    ])
-    .finally(() => {
-      setRefreshing(false);
-    });
-
-  }, [refetchRoute1, refetchRoute2]);
+  const onRefresh = async () => {
+    try {
+      setRefreshing(true)
+      await Promise.all([
+        refetchRoute1,
+        refetchRoute2,
+      ])
+    } finally {
+      setRefreshing(false)
+    }
+  }
 
   return (
     <SafeAreaView style={s.pageContainer}>
