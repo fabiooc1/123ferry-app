@@ -7,21 +7,37 @@ export const scheduleTripSchema = z.object({
   departureDate: z
     .string()
     .min(10, "Data de partida inválida (DD/MM/AAAA)")
-    .refine((val) => /^\d{2}\/\d{2}\/\d{4}$/.test(val), {
-      message: "Formato de data inválido (DD/MM/AAAA)",
-    })
-    .transform((dateString, ctx) => {
-      const [day, month, year] = dateString.split("/").map(Number);
-
-      const utcDate = new Date(Date.UTC(year, month - 1, day));
-      if (utcDate.getUTCDate() !== day || utcDate.getUTCMonth() !== month - 1) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.invalid_date,
-          message: "Data inválida (ex: 31 de Fevereiro)",
-        });
-        return z.NEVER;
+    .transform((value) => {
+      const parts = value.split("/");
+      if (parts.length !== 3) {
+        return new Date(NaN);
       }
-      return utcDate.toISOString();
+      const [day, month, year] = parts.map(Number);
+      return new Date(year, month - 1, day); 
+    })
+    
+    .refine((value) => !isNaN(value.getTime()), { 
+      message: "Data inválida" 
+    })
+    
+    .refine((value) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      return value >= today; 
+    }, { 
+      message: "A data de partida não pode ser anterior a atual" 
+    })
+    
+    .transform((value) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      if (value.getTime() === today.getTime()) {
+        return new Date();
+      }
+
+      return value;
     }),
 });
 
