@@ -1,6 +1,3 @@
-import { colors } from "@/constants/colors";
-import { Link } from "expo-router";
-import { BellIcon } from "phosphor-react-native";
 import { Text, View } from "react-native";
 import { s } from "./styles";
 
@@ -11,9 +8,9 @@ export default function Header() {
                 Olá, Fábio
             </Text>
 
-            <Link href="/notifications">
+            {/* <Link href="/notifications">
               <BellIcon weight="fill" color={colors.icon.primary} />
-            </Link>
+            </Link> */}
         </View>
     )
 }
