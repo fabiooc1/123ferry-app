@@ -2,6 +2,7 @@ import Button from "@/components/button";
 import FormField from "@/components/forms/form-field";
 import { colors } from "@/constants/colors";
 import { useAuth } from "@/contexts/AuthContext";
+import { ValidationError } from "@/services/errors/ValidationError";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
@@ -29,24 +30,19 @@ export default function LoginForm() {
 
       navigate.replace("/(tabs)")
     } catch (error) {
-      if (error instanceof Error) {
-        if (error.cause === 401) {
-          form.setError("email", {
-            message: error.message,
-          });
+      if (error instanceof ValidationError) {
+        form.setError("email", {
+          message: error.message,
+        });
+        
+        form.setError("password", {
+          message: error.message,
+        });
 
-          form.setError("password", {
-            message: error.message,
-          });
-
-          return;
-        }
-
-        Alert.alert(
-          error.message,
-          "Não foi possível realizar o login por algum erro interno. Contate um administrador"
-        );
+        return
       }
+
+      Alert.alert("Ocorreu um erro inesperado. Contate um suporte.")
     } finally {
       setIsSubmittingFormData(false)
     }
