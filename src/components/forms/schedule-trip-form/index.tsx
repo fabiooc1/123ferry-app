@@ -30,9 +30,9 @@ export default function ScheduleTripForm() {
 
       const result = await tripService.getAll(
         1,
-        8,
+        10,
         data.routeId,
-        data.departureDate
+        data.departureDate.toISOString()
       );
       setTripsPaginationData(result);
     } finally {
