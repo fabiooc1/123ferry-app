@@ -25,7 +25,7 @@ export default function LoginScreen() {
         >
           <View style={s.startContainer}>
             <Image
-              source={require("@/assets/images/icon.png")}
+              source={require("@/assets/images/adaptive-icon.png")}
               accessibilityLabel="Logo 123 Ferry"
               style={s.logo}
             />
