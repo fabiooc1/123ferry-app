@@ -55,7 +55,7 @@ export default function ScheduleTripForm() {
                   value: "1",
                 },
                 {
-                  label: "Conjupe",
+                  label: "Alcântara",
                   value: "2",
                 },
               ]}
