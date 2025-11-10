@@ -17,7 +17,7 @@ export default function HorizontalTripCard({ trip }: HorizontalTripCardProps) {
     navigate.push({
       pathname: "/(tabs)/(schedule-trip)/schedule-details",
         params: {
-          tripId: trip.id.toString()
+          tripParamId: trip.id.toString()
         }
     })
   }
