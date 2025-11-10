@@ -4,7 +4,7 @@ import { router } from "expo-router";
 import { getItem } from "expo-secure-store";
 
 export const api = axios.create({
-  baseURL: "http://192.168.251.29:3000",
+  baseURL: "https://one23ferry-backend.onrender.com",
   timeout: 8000, // 8 seconds
 });
 
