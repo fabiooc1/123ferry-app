@@ -20,9 +20,10 @@ class UserService {
       await setItemAsync(jwtKeyPath, token);
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw new Error("Credenciais inválidas", {
-          cause: Number(error.status),
-        });
+        throw new ValidationError({
+          field: 'email',
+          message: "Credénciais inválidas"
+        })
       }
 
       throw error;
