@@ -7,31 +7,32 @@ export function useTodayTrips(routeId: number) {
   const [tripsPaginationData, setTripsPaginationData] =
     useState<TripsPaginationModel | null>(null);
 
-  useEffect(() => {
-    async function loadTickets() {
-      try {
-        setIsLoading(true)
-        const currentTimestampUTC = new Date().toISOString();
-        const resultData = await tripService.getAll(
-          1,
-          10,
-          routeId,
-          currentTimestampUTC
-        );
+  const loadTrips = async () => {
+    try {
+      setIsLoading(true)
+      const currentTimestampUTC = new Date().toISOString();
+      const resultData = await tripService.getAll(
+        1,
+        10,
+        routeId,
+        currentTimestampUTC
+      );
 
-        setTripsPaginationData(resultData);
-      } catch (error) {
-        console.error("ERROR", error);
-      } finally {
-        setIsLoading(false)
-      }
+      setTripsPaginationData(resultData);
+    } catch (error) {
+      console.error("ERROR", error);
+    } finally {
+      setIsLoading(false)
     }
+  }
 
-    loadTickets();
+  useEffect(() => {
+    loadTrips()
   }, [routeId]);
 
   return {
     tripsPaginationData,
     isLoading,
+    loadTrips
   };
 }
