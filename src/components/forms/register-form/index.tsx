@@ -111,7 +111,7 @@ export default function RegisterForm() {
           render={({ field: { onChange, onBlur, value } }) => (
             <FormField
               label="Telefone*"
-              type="text"
+              type="number"
               mask={PHONE_MASK}
               placeholder="(00) 90000-0000"
               onBlur={onBlur}
@@ -128,7 +128,7 @@ export default function RegisterForm() {
           render={({ field: { onChange, onBlur, value } }) => (
             <FormField
               label="CPF*"
-              type="text"
+              type="number"
               mask={CPF_MASK}
               placeholder="000.000.000-00"
               onBlur={onBlur}

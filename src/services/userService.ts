@@ -1,7 +1,7 @@
 import { jwtKeyPath } from "@/constants/security";
 import { api } from "@/lib/axios";
 import { UserModel } from "@/models/UserModel";
-import { AxiosError } from "axios";
+import { AxiosError, HttpStatusCode } from "axios";
 import { setItemAsync } from "expo-secure-store";
 import { CreateUserRequestDto } from "./dtos/CreateUserRequestDto";
 import { LoginRequestDto } from "./dtos/LoginRequestDto";
@@ -20,10 +20,16 @@ class UserService {
       await setItemAsync(jwtKeyPath, token);
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw new ValidationError({
+       if (error.status === HttpStatusCode.Unauthorized) {
+         throw new ValidationError({
           field: 'email',
           message: "Credénciais inválidas"
         })
+       }
+
+       if (!error.response) {
+        throw new Error("Serviço indisponível no momento. Tente novamente mais tarde.")
+       }
       }
 
       throw error;
@@ -36,9 +42,13 @@ class UserService {
       return response.data as UserModel
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error.status === 409 || error.status === 400) {
+        if (error.status === HttpStatusCode.Conflict || HttpStatusCode.BadRequest) {
             throw new ValidationError(error.response?.data)
         }
+
+        if (!error.response) {
+          throw new Error("Serviço indisponível no momento. Tente novamente mais tarde.")
+         }
       }
 
       throw error;

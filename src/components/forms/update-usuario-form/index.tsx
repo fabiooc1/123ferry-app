@@ -82,7 +82,7 @@ export default function UpdateUsuarioForm() {
           render={({ field: { onChange, onBlur, value } }) => (
             <FormField
               label="Telefone"
-              type="text"
+              type="number"
               mask={PHONE_MASK}
               placeholder="(00) 90000-0000"
               onBlur={onBlur}
@@ -95,7 +95,7 @@ export default function UpdateUsuarioForm() {
 
         <FormField
           label="CPF"
-          type="text"
+          type="number"
           placeholder="000.000.000-00"
           value={user?.cpf}
           disabled={true}
