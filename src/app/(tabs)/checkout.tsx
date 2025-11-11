@@ -77,7 +77,7 @@ export default function CheckoutScreen() {
       });
 
       navigate.replace({
-        pathname: "/purchase-details",
+        pathname: "/(tabs)/purchase-details",
         params: {
           ticketCode: ticket.codigo,
         },

@@ -34,6 +34,7 @@ export default function TabsLayout() {
             <HouseIcon color={color} size={size} weight="bold" />
           ),
         }}
+
       />
 
       <Tabs.Screen
@@ -63,6 +64,27 @@ export default function TabsLayout() {
           tabBarIcon: ({ color, size }) => (
             <UserIcon color={color} size={size} weight="bold" />
           ),
+        }}
+      />
+
+      <Tabs.Screen 
+        name="checkout"
+        options={{
+          href: null,
+        }}
+      />
+
+      <Tabs.Screen 
+        name="schedule-details"
+        options={{
+          href: null,
+        }}
+      />
+
+      <Tabs.Screen 
+        name="purchase-details"
+        options={{
+          href: null,
         }}
       />
     </Tabs>
