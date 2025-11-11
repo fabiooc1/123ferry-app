@@ -1,4 +1,3 @@
-import AddPassagerBottomSheetModal from "@/components/modals/add-passager-bottom-sheet-modal";
 import { usePurchasePassager } from "@/contexts/PurshasePassagerContext";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { PlusIcon } from "phosphor-react-native";
@@ -6,16 +5,22 @@ import { useRef } from "react";
 import { Text, View } from "react-native";
 import Button from "../button";
 import EmptyList from "../empty-list";
+import AddPassagerForm from "../forms/add-passager-form";
+import FormBottomSheetModal from "../modals/form-bottom-sheet-modal";
 import PassagerCardManager from "./passager-card-manager";
 import { s } from "./styles";
 
 export default function TripPassagersManager() {
-  const { passagers } = usePurchasePassager()
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const { passagers } = usePurchasePassager();
+  const addPassagerModalRef = useRef<BottomSheetModal>(null);
 
-  function handleOpenPassagerForm() {
-    bottomSheetModalRef.current?.present();
-  }
+  const handleOpenPassagerForm = () => {
+    addPassagerModalRef.current?.present();
+  };
+
+  const handleClosePassagerForm = () => {
+    addPassagerModalRef.current?.dismiss();
+  };
 
   let content;
 
@@ -28,7 +33,9 @@ export default function TripPassagersManager() {
       />
     );
   } else {
-    content = passagers.map((passager) => <PassagerCardManager key={passager.cpf} passager={passager} />);
+    content = passagers.map((passager) => (
+      <PassagerCardManager key={passager.cpf} passager={passager} />
+    ));
   }
 
   return (
@@ -47,7 +54,9 @@ export default function TripPassagersManager() {
         {content}
       </View>
 
-      <AddPassagerBottomSheetModal ref={bottomSheetModalRef} />
+      <FormBottomSheetModal title="Adicionar passageiro" ref={addPassagerModalRef} snapPoints={['50%']}>
+        <AddPassagerForm onSuccess={handleClosePassagerForm} />
+      </FormBottomSheetModal>
     </>
   );
 }

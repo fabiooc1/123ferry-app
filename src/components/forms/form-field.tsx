@@ -1,4 +1,5 @@
 import { colors } from "@/constants/colors";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet"; // Apenas este é necessário
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -13,7 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { MaskedTextInput } from "react-native-mask-text";
+import { MaskedTextInput } from "react-native-mask-text"; // Este é o componente de máscara
 
 interface FormFieldProps extends TextInputProps {
   label: string;
@@ -21,6 +22,7 @@ interface FormFieldProps extends TextInputProps {
   error?: string;
   mask?: string;
   disabled?: boolean;
+  isBottomSheetInput?: boolean;
 }
 
 export default function FormField({
@@ -31,6 +33,7 @@ export default function FormField({
   value,
   onChangeText,
   disabled = false,
+  isBottomSheetInput = false,
   ...props
 }: FormFieldProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -91,6 +94,21 @@ export default function FormField({
     return new Date();
   };
 
+  const commonInputStyle = [
+    s.input,
+    hasError && s.inputError,
+    disabled && s.inputDisabled,
+  ];
+
+  const commonInputProps = {
+    style: commonInputStyle,
+    value: value,
+    placeholderTextColor: colors.text.placeholder,
+    editable: !disabled,
+    ...inputProps,
+    ...props,
+  };
+
   return (
     <View style={s.container}>
       <Text
@@ -105,35 +123,34 @@ export default function FormField({
           disabled && s.inputContainerDisabled,
         ]}
       >
-        {activeMask ? (
-          <MaskedTextInput
-            style={[
-              s.input,
-              hasError && s.inputError,
-              disabled && s.inputDisabled,
-            ]}
-            value={value}
-            placeholderTextColor={colors.text.placeholder}
-            {...inputProps}
-            {...props}
-            mask={activeMask}
-            onChangeText={handleMaskedChange}
-            editable={!disabled}
-          />
+        {isBottomSheetInput ? (
+          <>
+            {activeMask ? (
+              <BottomSheetTextInput
+                {...commonInputProps}
+                textInputComponent={MaskedTextInput}
+                mask={activeMask}
+                onChangeText={handleMaskedChange}
+              />
+            ) : (
+              <BottomSheetTextInput
+                {...commonInputProps}
+                onChangeText={onChangeText}
+              />
+            )}
+          </>
         ) : (
-          <TextInput
-            style={[
-              s.input,
-              hasError && s.inputError,
-              disabled && s.inputDisabled,
-            ]}
-            value={value}
-            onChangeText={onChangeText}
-            placeholderTextColor={colors.text.placeholder}
-            {...inputProps}
-            {...props}
-            editable={!disabled}
-          />
+          <>
+            {activeMask ? (
+              <MaskedTextInput
+                {...commonInputProps}
+                mask={activeMask}
+                onChangeText={handleMaskedChange}
+              />
+            ) : (
+              <TextInput {...commonInputProps} onChangeText={onChangeText} />
+            )}
+          </>
         )}
 
         {type === "password" && (

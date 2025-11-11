@@ -1,4 +1,3 @@
-import AddVehicleBottomSheetModal from "@/components/modals//add-vehicle-bottom-sheet-modal";
 import { usePurchasePassager } from "@/contexts/PurshasePassagerContext";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { PlusIcon } from "phosphor-react-native";
@@ -6,6 +5,8 @@ import { useRef } from "react";
 import { Text, View } from "react-native";
 import Button from "../button";
 import EmptyList from "../empty-list";
+import AddVehicleForm from "../forms/add-vehicle-form";
+import FormBottomSheetModal from "../modals/form-bottom-sheet-modal";
 import { s } from "./styles";
 import VehicleCardManager from "./vehicle-card-manager";
 
@@ -15,6 +16,10 @@ export default function TripVehiclesManager() {
 
   function handleOpenVehicleForm() {
     bottomSheetModalRef.current?.present();
+  }
+
+   function handleCloseVehicleForm() {
+    bottomSheetModalRef.current?.dismiss();
   }
 
   let content;
@@ -47,7 +52,9 @@ export default function TripVehiclesManager() {
         {content}
       </View>
 
-      <AddVehicleBottomSheetModal ref={bottomSheetModalRef} />
+      <FormBottomSheetModal ref={bottomSheetModalRef} title="Adicionar veículo" snapPoints={['50%']}>
+        <AddVehicleForm onSuccess={handleCloseVehicleForm} />
+      </FormBottomSheetModal>
     </>
   );
 }

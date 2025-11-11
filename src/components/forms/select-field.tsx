@@ -82,6 +82,7 @@ const s = StyleSheet.create({
   },
   picker: {
     color: colors.text.tertiary,
+    backgroundColor: colors.bg.secondary,
     fontFamily: "Inter-Bold",
     fontSize: 14,
     width: '100%',
