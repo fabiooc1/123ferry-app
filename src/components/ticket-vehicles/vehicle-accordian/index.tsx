@@ -1,19 +1,15 @@
 import { colors } from "@/constants/colors";
-import { TicketStatus } from "@/models/TicketModel";
 import { TicketVehicleModel } from "@/models/TicketVehicleModel";
-import { formatCurrency } from "@/utils/money";
 import { Accordion } from "@animatereactnative/accordion";
 import { CaretDownIcon } from "phosphor-react-native";
 import { Text, View } from "react-native";
 import { s } from "./styles";
 
 interface VehicleAccordionProps {
-  ticketStatus: TicketStatus;
   vehicle: TicketVehicleModel;
 }
 
 export default function VehicleAccordion({
-  ticketStatus,
   vehicle,
 }: VehicleAccordionProps) {
   console.log(vehicle)
@@ -36,13 +32,6 @@ export default function VehicleAccordion({
             <Text style={s.detailLabel}>Categoria</Text>
             <Text style={s.detailValue}>{vehicle.veiculoCategoria.nome}</Text>
           </View>
-
-          {ticketStatus !== "RESERVADA" && vehicle.precoPagoEmCentavos && (
-            <View style={s.detailRow}>
-              <Text style={s.detailLabel}>Preço Pago</Text>
-              <Text style={s.detailValue}>{formatCurrency(vehicle.precoPagoEmCentavos)}</Text>
-            </View>
-          )}
 
           <View style={s.detailRow}>
             <Text style={s.detailLabel}>Motorista</Text>

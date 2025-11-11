@@ -143,11 +143,11 @@ export default function PurchaseDetailsScreen() {
             <Line borderType="dashed" marginHorizontal={22} />
 
             <View style={s.ticketSection}>
-              <TicketPassagers ticketStatus={ticket.status} passagers={ticket.passageiros} />
-              <TicketVehicles ticketStatus={ticket.status} vehicles={ticket.veiculos} />
+              <TicketPassagers passagers={ticket.passageiros} />
+              <TicketVehicles vehicles={ticket.veiculos} />
             </View>
 
-            {ticket.status === "PAGA" && ticket.pagaEm && (
+            {(ticket.status === "PAGA" || ticket.status === "CANCELADA") && ticket.pagaEm && (
               <>
               <Line borderType="dashed" marginHorizontal={22} />
               <TicketSammary passagers={ticket.passageiros} vehicles={ticket.veiculos} />
