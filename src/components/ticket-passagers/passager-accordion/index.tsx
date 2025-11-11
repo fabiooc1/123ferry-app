@@ -13,7 +13,6 @@ interface PassagerAccordionProps {
 export default function PassagerAccordion({
   passager,
 }: PassagerAccordionProps) {
-  console.log(passager)
   return (
     <Accordion.Accordion style={s.container}>
       <Accordion.Header>

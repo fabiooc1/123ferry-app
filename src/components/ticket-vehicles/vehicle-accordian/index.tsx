@@ -12,8 +12,6 @@ interface VehicleAccordionProps {
 export default function VehicleAccordion({
   vehicle,
 }: VehicleAccordionProps) {
-  console.log(vehicle)
-
   return (
     <Accordion.Accordion style={s.container}>
       <Accordion.Header>
