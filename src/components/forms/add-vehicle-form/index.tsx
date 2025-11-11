@@ -77,6 +77,7 @@ export default function AddVehicleForm({ onSuccess }: AddVehicleFormProps) {
           <FormField
             label="Placa*"
             type="plate"
+            useBottomSheet={true}
             mask={PLATE_MASK}
             placeholder="Placa do carro"
             onBlur={onBlur}

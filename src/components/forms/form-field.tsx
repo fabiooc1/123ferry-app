@@ -1,4 +1,5 @@
 import { colors } from "@/constants/colors";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -13,7 +14,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { MaskedTextInput } from "react-native-mask-text";
 
 interface FormFieldProps extends TextInputProps {
   label: string;
@@ -21,7 +21,57 @@ interface FormFieldProps extends TextInputProps {
   error?: string;
   mask?: string;
   disabled?: boolean;
+  useBottomSheet?: boolean;
 }
+
+// Função auxiliar para aplicar máscara manualmente
+const applyMask = (text: string, mask: string): string => {
+  if (!mask || !text) return text;
+  
+  let maskedText = "";
+  let textIndex = 0;
+  
+  for (let i = 0; i < mask.length && textIndex < text.length; i++) {
+    if (mask[i] === "9") {
+      // Aceita apenas números
+      if (/\d/.test(text[textIndex])) {
+        maskedText += text[textIndex];
+        textIndex++;
+      } else {
+        textIndex++;
+        i--;
+      }
+    } else if (mask[i] === "A") {
+      // Aceita apenas letras
+      if (/[a-zA-Z]/.test(text[textIndex])) {
+        maskedText += text[textIndex];
+        textIndex++;
+      } else {
+        textIndex++;
+        i--;
+      }
+    } else if (mask[i] === "S") {
+      // Aceita letras e números
+      if (/[a-zA-Z0-9]/.test(text[textIndex])) {
+        maskedText += text[textIndex];
+        textIndex++;
+      } else {
+        textIndex++;
+        i--;
+      }
+    } else {
+      // Caractere fixo da máscara
+      maskedText += mask[i];
+    }
+  }
+  
+  return maskedText;
+};
+
+const removeMask = (text: string, mask?: string): string => {
+  if (!mask) return text;
+  return text.replace(/[^a-zA-Z0-9]/g, "");
+};
 
 export default function FormField({
   label,
@@ -31,6 +81,7 @@ export default function FormField({
   value,
   onChangeText,
   disabled = false,
+  useBottomSheet = false,
   ...props
 }: FormFieldProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -48,6 +99,7 @@ export default function FormField({
   } else if (type === "password") {
     inputProps.secureTextEntry = !isPasswordVisible;
   } else if (type === "number" || type === "date") {
+    inputProps.keyboardType = "numeric";
   } else if (type === "plate") {
     inputProps.autoCapitalize = "characters";
   }
@@ -59,8 +111,17 @@ export default function FormField({
     ? colors.status.danger
     : colors.text.secondary;
 
-  const handleMaskedChange = (text: string, rawText: string) => {
-    if (onChangeText) {
+  // Handler para inputs com máscara
+  const handleMaskedChange = (text: string) => {
+    if (!onChangeText) return;
+    
+    const activeMask = type === "date" ? "99/99/9999" : mask;
+    
+    if (activeMask) {
+      const rawText = removeMask(text, activeMask);
+      const maskedText = applyMask(rawText, activeMask);
+      onChangeText(maskedText);
+    } else {
       onChangeText(text);
     }
   };
@@ -72,9 +133,6 @@ export default function FormField({
       onChangeText(formattedDate);
     }
   };
-
-  const dateMask = "99/99/9999";
-  const activeMask = type === "date" ? dateMask : mask;
 
   const getDateValue = () => {
     if (!value || typeof value !== "string") return new Date();
@@ -91,6 +149,9 @@ export default function FormField({
     return new Date();
   };
 
+  const InputComponent = useBottomSheet ? BottomSheetTextInput : TextInput;
+  const hasMask = !!(type === "date" || mask);
+
   return (
     <View style={s.container}>
       <Text
@@ -105,36 +166,19 @@ export default function FormField({
           disabled && s.inputContainerDisabled,
         ]}
       >
-        {activeMask ? (
-          <MaskedTextInput
-            style={[
-              s.input,
-              hasError && s.inputError,
-              disabled && s.inputDisabled,
-            ]}
-            value={value}
-            placeholderTextColor={colors.text.placeholder}
-            {...inputProps}
-            {...props}
-            mask={activeMask}
-            onChangeText={handleMaskedChange}
-            editable={!disabled}
-          />
-        ) : (
-          <TextInput
-            style={[
-              s.input,
-              hasError && s.inputError,
-              disabled && s.inputDisabled,
-            ]}
-            value={value}
-            onChangeText={onChangeText}
-            placeholderTextColor={colors.text.placeholder}
-            {...inputProps}
-            {...props}
-            editable={!disabled}
-          />
-        )}
+        <InputComponent
+          style={[
+            s.input,
+            hasError && s.inputError,
+            disabled && s.inputDisabled,
+          ]}
+          value={value}
+          onChangeText={hasMask ? handleMaskedChange : onChangeText}
+          placeholderTextColor={colors.text.placeholder}
+          {...inputProps}
+          {...props}
+          editable={!disabled}
+        />
 
         {type === "password" && (
           <TouchableOpacity

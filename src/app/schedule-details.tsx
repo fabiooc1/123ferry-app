@@ -20,7 +20,7 @@ export default function ScheduleDetailsScreen() {
     usePurchasePassager();
 
   useEffect(() => {
-    loadPageContent();
+    loadPageContent()
   }, [tripParamId]);
 
   async function loadPageContent() {

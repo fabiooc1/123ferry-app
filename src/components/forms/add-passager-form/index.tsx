@@ -70,6 +70,7 @@ export default function AddPassagerForm({ onSuccess }: AddPassagerFormProps) {
           <FormField
             label="Nome completo*"
             type="text"
+            useBottomSheet={true}
             placeholder="Fulano de tal da Silva"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -85,7 +86,8 @@ export default function AddPassagerForm({ onSuccess }: AddPassagerFormProps) {
         render={({ field: { onChange, onBlur, value } }) => (
           <FormField
             label="CPF*"
-            type="text"
+            type="number"
+            useBottomSheet={true}
             mask={CPF_MASK}
             placeholder="000.000.000-00"
             onBlur={onBlur}
@@ -101,6 +103,7 @@ export default function AddPassagerForm({ onSuccess }: AddPassagerFormProps) {
         name="bornDate"
         render={({ field: { onChange, onBlur, value } }) => (
           <FormField
+            useBottomSheet={true}
             label="Data de nascimento*"
             placeholder="00/00/0000"
             onBlur={onBlur}
@@ -119,6 +122,6 @@ export default function AddPassagerForm({ onSuccess }: AddPassagerFormProps) {
 
 const s = StyleSheet.create({
   form: {
-    gap: 12
+    gap: 12,
   },
 });
