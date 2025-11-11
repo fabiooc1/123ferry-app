@@ -65,27 +65,6 @@ export default function TabsLayout() {
           ),
         }}
       />
-
-      <Tabs.Screen
-        name="(schedule-trip)/schedule-details"
-        options={{
-          href: null,
-        }}
-      />
-
-      <Tabs.Screen
-        name="(schedule-trip)/checkout"
-        options={{
-          href: null,
-        }}
-      />
-
-      <Tabs.Screen
-        name="(purchases)/purchase-details"
-        options={{
-          href: null,
-        }}
-      />
     </Tabs>
   );
 }
