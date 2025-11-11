@@ -15,7 +15,7 @@ export default function HorizontalTripCard({ trip }: HorizontalTripCardProps) {
   const navigate = useRouter()
   function handleOnPurchaseButtonClick() {
     navigate.push({
-      pathname: "/(tabs)/(schedule-trip)/schedule-details",
+      pathname: "/schedule-details",
         params: {
           tripParamId: trip.id.toString()
         }

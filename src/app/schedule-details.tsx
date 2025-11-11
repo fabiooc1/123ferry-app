@@ -59,7 +59,7 @@ export default function ScheduleDetailsScreen() {
   };
 
   function handleNavigateToCheckout() {
-    navigate.push("/(tabs)/(schedule-trip)/checkout");
+    navigate.push("/checkout");
   }
 
   return (

@@ -17,7 +17,7 @@ export default function TicketCard({ ticket }: TicketCardProps) {
   return (
     <Link
       href={{
-        pathname: "/(tabs)/(purchases)/purchase-details",
+        pathname: "/purchase-details",
         params: {
           ticketCode: ticket.codigo,
         },

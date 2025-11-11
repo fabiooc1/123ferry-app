@@ -17,7 +17,7 @@ export default function VerticalTripCard({
   return (
     <Link
       href={{
-        pathname: "/(tabs)/(schedule-trip)/schedule-details",
+        pathname: "/schedule-details",
         params: {
           tripParamId: trip.id.toString()
         }

@@ -14,7 +14,7 @@ import { ticketService } from "@/services/ticketService";
 import { formatDate, formatDateTime } from "@/utils/date";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { AxiosError } from "axios";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -25,7 +25,6 @@ export default function PurchaseDetailsScreen() {
   const [ticket, setTicket] = useState<TicketModel | null>(null);
   const [isCancelingTicket, setIsCancelingTicket] = useState(false)
 
-  const navigate = useRouter();
   const confirmationModalRef = useRef<BottomSheetModal>(null);
 
   async function loadTicket() {
