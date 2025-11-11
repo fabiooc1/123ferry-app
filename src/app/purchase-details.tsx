@@ -143,8 +143,8 @@ export default function PurchaseDetailsScreen() {
             <Line borderType="dashed" marginHorizontal={22} />
 
             <View style={s.ticketSection}>
-              <TicketPassagers passagers={ticket.passageiros} />
-              <TicketVehicles vehicles={ticket.veiculos} />
+              <TicketPassagers ticketStatus={ticket.status} passagers={ticket.passageiros} />
+              <TicketVehicles ticketStatus={ticket.status} vehicles={ticket.veiculos} />
             </View>
 
             {ticket.status === "PAGA" && ticket.pagaEm && (

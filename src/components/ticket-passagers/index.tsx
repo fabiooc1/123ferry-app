@@ -1,20 +1,22 @@
 import { colors } from "@/constants/colors";
+import { TicketStatus } from "@/models/TicketModel";
 import { TicketPassagerModel } from "@/models/TicketPassagerModel";
 import { StyleSheet, Text, View } from "react-native";
 import PassagerAccordion from "./passager-accordion";
 
 interface TicketPassagersProps {
+    ticketStatus: TicketStatus
     passagers: TicketPassagerModel[]
 }
 
-export default function TicketPassagers({ passagers }: TicketPassagersProps) {
+export default function TicketPassagers({ ticketStatus, passagers }: TicketPassagersProps) {
     return (
         <View style={s.container}>
             <Text style={s.title}>Passageiros ({passagers.length})</Text>
 
             <View style={s.content}>
                 {passagers.map(passager => (
-                     <PassagerAccordion key={passager.cpf} passager={passager} />
+                     <PassagerAccordion key={passager.cpf} ticketStatus={ticketStatus} passager={passager} />
                 ))}
             </View>
         </View>

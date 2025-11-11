@@ -5,8 +5,6 @@ export interface TicketPassagerModel {
     nomeCompleto: string;
     cpf: string;
     dataNascimento: string;
-    tipoId: number;
     tipo: PassagerTypeModel;
-    passagemId: number;
     precoPagoEmCentavos: number | null;
 }
