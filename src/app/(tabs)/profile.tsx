@@ -27,7 +27,7 @@ export default function ProfileScreen() {
   }
 
   return (
-    <SafeAreaView style={s.pageContainer}>
+    <SafeAreaView style={s.pageContainer} edges={['top', 'left', 'right']}>
       <Header />
 
       <KeyboardAvoidingView

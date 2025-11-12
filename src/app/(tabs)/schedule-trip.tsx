@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ScheduleTripScreen() {
   return (
-    <SafeAreaView style={s.pageContainer}>
+    <SafeAreaView style={s.pageContainer} edges={['top', 'left', 'right']}>
       <Header />
 
       <View style={s.pageContent}>

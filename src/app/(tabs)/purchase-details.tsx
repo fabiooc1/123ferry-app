@@ -77,7 +77,7 @@ export default function PurchaseDetailsScreen() {
 
   return (
     <>
-      <SafeAreaView style={s.pageContainer}>
+      <SafeAreaView style={s.pageContainer} edges={['top', 'left', 'right']}>
         <Header />
 
         <ScrollView

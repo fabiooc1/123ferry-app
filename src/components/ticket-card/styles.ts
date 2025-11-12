@@ -8,6 +8,7 @@ export const s = StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.border.primary,
     padding: 16,
+    marginHorizontal: 1,
     marginVertical: 8,
     gap: 4,
   },

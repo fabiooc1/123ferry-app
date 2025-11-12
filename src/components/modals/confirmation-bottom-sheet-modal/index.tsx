@@ -10,6 +10,7 @@ import {
 import { WarningCircleIcon } from "phosphor-react-native";
 import React, { forwardRef, useCallback, useMemo } from "react";
 import { Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { s } from "./styles";
 
 type BottomSheetRef = BottomSheetModal;
@@ -26,16 +27,17 @@ const ConfirmationBottomSheetModal = forwardRef<
   BottomSheetRef,
   ConfirmationBottomSheetModalProps
 >((props, ref) => {
-  const { 
-    title, 
-    description, 
-    onConfirm, 
-    confirmText = "Confirmar", 
-    cancelText = "Cancelar" 
+  const {
+    title,
+    description,
+    onConfirm,
+    confirmText = "Confirmar",
+    cancelText = "Cancelar",
   } = props;
-  
-  const snapPoints = useMemo(() => ["35%"], []);
+
+  const snapPoints = useMemo(() => ["60%"], []);
   const { dismiss } = useBottomSheetModal();
+  const { bottom: bottomSafeArea } = useSafeAreaInsets();
 
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
@@ -62,25 +64,36 @@ const ConfirmationBottomSheetModal = forwardRef<
       backgroundStyle={s.background}
       handleIndicatorStyle={s.handle}
     >
-      <BottomSheetView style={s.contentContainer}>
-        <WarningCircleIcon size={48} color={colors.status.danger} style={s.icon} />
-        
+      <BottomSheetView
+        style={[
+          s.contentContainer,
+          {
+            paddingBottom: bottomSafeArea > 0 ? bottomSafeArea : 20,
+          },
+        ]}
+      >
+        <WarningCircleIcon
+          size={48}
+          color={colors.status.danger}
+          style={s.icon}
+        />
+
         <Text style={s.title}>{title}</Text>
-        
+
         <Text style={s.description}>{description}</Text>
 
         <View style={s.buttonContainer}>
-          <Button 
-            variant="secondary" 
+          <Button
+            variant="secondary"
             size="small"
-            label={cancelText} 
-            onPress={() => dismiss()} 
+            label={cancelText}
+            onPress={() => dismiss()}
           />
-          <Button 
+          <Button
             variant="primary"
             size="small"
-            label={confirmText} 
-            onPress={handleConfirm} 
+            label={confirmText}
+            onPress={handleConfirm}
           />
         </View>
       </BottomSheetView>

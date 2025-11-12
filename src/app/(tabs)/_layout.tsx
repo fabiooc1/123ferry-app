@@ -4,26 +4,24 @@ import {
   HouseIcon,
   ShoppingCartSimpleIcon,
   TicketIcon,
-  UserIcon
+  UserIcon,
 } from "phosphor-react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabsLayout() {
+  const insets = useSafeAreaInsets();
+
+  console.log(insets.bottom);
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarInactiveTintColor: colors.icon.primary,
         tabBarActiveTintColor: colors.icon.secondary,
-        tabBarStyle: {
-          borderColor: colors.border.primary,
-          backgroundColor: colors.bg.secondary,
-          borderWidth: 2,
-          height: 72,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontFamily: "Inter-SemiBold",
-        },
+      }}
+      safeAreaInsets={{
+        bottom: insets.bottom,
       }}
     >
       <Tabs.Screen
@@ -34,7 +32,6 @@ export default function TabsLayout() {
             <HouseIcon color={color} size={size} weight="bold" />
           ),
         }}
-
       />
 
       <Tabs.Screen
@@ -67,21 +64,21 @@ export default function TabsLayout() {
         }}
       />
 
-      <Tabs.Screen 
+      <Tabs.Screen
         name="checkout"
         options={{
           href: null,
         }}
       />
 
-      <Tabs.Screen 
+      <Tabs.Screen
         name="schedule-details"
         options={{
           href: null,
         }}
       />
 
-      <Tabs.Screen 
+      <Tabs.Screen
         name="purchase-details"
         options={{
           href: null,

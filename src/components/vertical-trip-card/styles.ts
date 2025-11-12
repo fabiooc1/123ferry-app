@@ -1,14 +1,10 @@
 import { colors } from "@/constants/colors";
 import { StyleSheet } from "react-native";
 
-const CARD_SIZE = 146
-
 export const s = StyleSheet.create({
   container: {
     justifyContent: "center",
     textAlign: "center",
-    width: CARD_SIZE,
-    height: CARD_SIZE,
     backgroundColor: colors.bg.secondary,
     borderColor: colors.border.primary,
     borderWidth: 2,
@@ -43,12 +39,12 @@ export const s = StyleSheet.create({
   footerLabel: {
     fontSize: 14,
     fontWeight: "500",
-    color: colors.status.avaliable,
+    color: colors.status.success,
   },
 
   cardSkeleton: {
-    width: CARD_SIZE,
-    height: CARD_SIZE,
+    width: 148,
+    height: 148,
     backgroundColor: colors.bg.secondary,
     borderRadius: 18,
     padding: 12,

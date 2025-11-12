@@ -17,6 +17,7 @@ export const s = StyleSheet.create({
     paddingHorizontal: 22,
   },
   footerContainer: {
+    alignItems: "center",
     padding: 22,
     backgroundColor: colors.bg.primary,
     borderTopWidth: 1,

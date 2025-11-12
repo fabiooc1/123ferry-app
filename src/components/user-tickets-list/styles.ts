@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
 export const s = StyleSheet.create({
-    listContainer: {}
+    listContainer: {
+        paddingRight: 8
+    }
 })

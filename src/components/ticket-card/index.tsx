@@ -2,7 +2,7 @@ import { colors } from "@/constants/colors";
 import { TicketPaginationItem } from "@/models/TicketPaginationItem";
 import { formatDateTime } from '@/utils/date';
 import { Link } from "expo-router";
-import { ArrowRightIcon } from "phosphor-react-native"; // Trocado para Phosphor
+import { ArrowRightIcon } from "phosphor-react-native";
 import { Text, View } from "react-native";
 import { s } from "./styles";
 

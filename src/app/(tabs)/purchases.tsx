@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PurchasesScreen() {
   return (
-    <SafeAreaView style={s.pageContainer}>
+    <SafeAreaView style={s.pageContainer} edges={['top', 'left', 'right']}>
       <Header />
 
       <View style={s.pageContent}>
@@ -26,7 +26,8 @@ const s = StyleSheet.create({
   pageContent: {
     flex: 1,
     gap: 12,
-    paddingHorizontal: 22,
+    paddingLeft: 22,
+    paddingRight: 14,
     paddingBottom: 10
   },
   pageTitle: {

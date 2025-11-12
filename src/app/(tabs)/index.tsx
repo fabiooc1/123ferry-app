@@ -16,10 +16,7 @@ export default function HomeScreen() {
   const onRefresh = async () => {
     try {
       setRefreshing(true)
-      await Promise.all([
-        refetchRoute1,
-        refetchRoute2,
-      ])
+      await Promise.all([refetchRoute1(), refetchRoute2()])
     } finally {
       setRefreshing(false)
     }

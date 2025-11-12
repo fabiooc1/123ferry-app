@@ -7,6 +7,7 @@ import {
 } from "@gorhom/bottom-sheet";
 import React, { forwardRef, ReactNode, useCallback, useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type BottomSheetRef = BottomSheetModal;
 
@@ -26,6 +27,8 @@ const FormBottomSheetModal = forwardRef<
     [customSnapPoints]
   );
 
+  const { bottom: bottomSafeArea } = useSafeAreaInsets();
+  
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
@@ -48,7 +51,9 @@ const FormBottomSheetModal = forwardRef<
       backgroundStyle={s.background}
       handleIndicatorStyle={s.handle}
     >
-      <BottomSheetView style={s.contentContainer}>
+      <BottomSheetView style={[s.contentContainer, {
+            paddingBottom: bottomSafeArea > 0 ? bottomSafeArea : 20,
+          }]}>
         <View style={s.header}>
           <Text style={s.title}>{title}</Text>
         </View>

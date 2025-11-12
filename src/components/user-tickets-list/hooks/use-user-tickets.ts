@@ -25,6 +25,11 @@ export function useUserTickets() {
     }
 
     loadTickets();
+
+    return () => {
+      setTicketsPaginationData(null)
+      setIsLoading(true)
+    }
   }, []);
 
   return {

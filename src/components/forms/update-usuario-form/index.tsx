@@ -3,7 +3,9 @@ import { PHONE_MASK } from "@/constants/masks";
 import { useAuth } from "@/contexts/AuthContext";
 import { ValidationError } from "@/services/errors/ValidationError";
 import { userService } from "@/services/userService";
+import { formatDate } from "@/utils/date";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { View } from "react-native";
@@ -14,6 +16,7 @@ import { s } from "./styles";
 export default function UpdateUsuarioForm() {
   const [isSubmittingForm, setIsSubmittingForm] = useState(false);
   const { user, setUser } = useAuth();
+  const navigator = useRouter();
 
   const form = useForm({
     resolver: zodResolver(updateUsuarioFormSchema),
@@ -35,7 +38,7 @@ export default function UpdateUsuarioForm() {
       });
 
       setUser(user);
-      form.reset()
+      form.reset();
     } catch (error) {
       if (error instanceof ValidationError) {
         form.setError(error.field as any, {
@@ -47,6 +50,11 @@ export default function UpdateUsuarioForm() {
     } finally {
       setIsSubmittingForm(false);
     }
+  }
+
+  if (!user) {
+    navigator.replace("/(auth)/login");
+    return;
   }
 
   return (
@@ -104,7 +112,7 @@ export default function UpdateUsuarioForm() {
         <FormField
           label="Data de nascimento"
           placeholder="00/00/0000"
-          value={user?.dataNascimento}
+          value={formatDate(user?.dataNascimento)}
           type="date"
           disabled={true}
         />
