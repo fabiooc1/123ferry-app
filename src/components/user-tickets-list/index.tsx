@@ -14,7 +14,7 @@ export default function UserTicketsList() {
   const renderRealItem = ({ item }: { item: any }) => <TicketCard ticket={item} />;
 
   const renderSkeletonItem = () => <TicketCardSkeleton />;
-
+  
   return (
     <FlatList
       style={s.listContainer}
