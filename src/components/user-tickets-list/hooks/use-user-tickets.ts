@@ -32,5 +32,6 @@ export function useUserTickets() {
   return {
     ticketsPaginationData,
     isLoading,
+    loadTickets,
   };
 }
